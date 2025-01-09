@@ -1,6 +1,7 @@
 import './home.css';
 import React from 'react';
 import RegisterForm from '../../components/RegisterForm';
+import LoginForm from '../../components/LoginForm';
 
 function Home(){
     return (
@@ -13,8 +14,7 @@ function Home(){
                     <RegisterForm />
                 </div>
                 <div id="rightPanel" class="homePanel">
-                    <h2>WHAT ARE WE?</h2>
-                    <p>A social playground for developers</p>
+                    <LoginForm />
                 </div>
             </div>
         </div>

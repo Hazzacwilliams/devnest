@@ -31,6 +31,14 @@ const RegisterForm = () => {
     const handleSubmit = (e) => { 
         e.preventDefault();
         dispatch(registerUser(formData));
+        setFormData({
+            username: '',
+            email: '',
+            name: '',
+            mobile: '',
+            region: '',
+            password: ''
+        })
     };
 
     return (

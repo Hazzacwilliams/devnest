@@ -23,12 +23,18 @@ passport.use(new LocalStrategy(
 ));
 
 passport.serializeUser((user, done) => {
-    done(null, user.userID);
+    if (!user || !user.userid) {
+        console.error('Failed to serialize user: Missing userID', user);
+        return done(new Error('Missing userID'));
+    }
+    console.log("User serialized successfully!");
+    done(null, user.userid); // Ensure `user.userID` is valid
 });
 
-passport.deserializeUser(async (userID, done) => {
+passport.deserializeUser(async (userid, done) => {
     try {
-        const user = await userModel.getUserById(userID);
+        const user = await userModel.getUserById(userid);
+        console.log(user);
         done(null, user);
     } catch (err) {
         done(err);

@@ -57,6 +57,7 @@ const deleteUser = async (req, res) => {
 }
 
 const loginUser = async (req, res, next) => {
+    console.log(req.body);
     passport.authenticate('local', (err, user, info) => {
         if(err) {
             return res.status(500).json({ error: "An error occured during login process" });
@@ -65,7 +66,9 @@ const loginUser = async (req, res, next) => {
             return res.status(401).json({ error: info.message });
         }
         req.login(user, (err) => {
+            console.log(user);
             if(err) {
+                console.error(err);
                 return res.status(500).json({ error: "Failed to login" });
             }
             res.json({ message: "Login successful", user});
