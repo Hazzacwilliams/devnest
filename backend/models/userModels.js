@@ -1,4 +1,4 @@
-import { pool } from '../server.js';
+import pool from '../config/dbConfig.js';
 
 export const getAllUsers = async () => {
     const result = await pool.query(`SELECT * FROM users`);
@@ -30,5 +30,15 @@ export const deleteUser = async (userID) => {
         `DELETE FROM users WHERE userID = $1 RETURNING *`,
         [userID]
     );
+    return result.rows[0];
+}
+
+export const getUserById = async (userID) => {
+    const result = await pool.query('SELECT * FROM users WHERE userID = $1', [userID]);
+    return result.rows[0];
+}
+
+export const getUserByEmail = async (email) => {
+    const result = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
     return result.rows[0];
 }

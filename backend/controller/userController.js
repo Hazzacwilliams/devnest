@@ -1,4 +1,6 @@
+import hashedPassword from '../utils/hashedPassword.js';
 import * as userModel from '../models/userModels.js';
+import passport from '../config/authConfig.js';
 
 const getAllUsers = async (req, res) => {
     try {
@@ -11,9 +13,12 @@ const getAllUsers = async (req, res) => {
 }
 
 const createUser = async (req, res) => {
+    console.log(req.body);
     const {username, email, name, mobile, region, password} = req.body;
+    const passwordHash = await hashedPassword(password);
+    console.log(passwordHash);
     try {
-        const newUser = await userModel.createUser(username, email, name, mobile, region, password);
+        const newUser = await userModel.createUser(username, email, name, mobile, region, passwordHash);
         res.status(201).json(newUser)
     } catch (err) {
         console.error(err);
@@ -24,8 +29,9 @@ const createUser = async (req, res) => {
 const updateUser = async (req, res) => {
     const { userID } = req.params;
     const {username, email, name, mobile, region, password} = req.body;
+    const passwordHash = await hashedPassword(password);
     try {
-        const updatedUser = await userModel.updateUser(userID, username, email, name, mobile, region, password);
+        const updatedUser = await userModel.updateUser(userID, username, email, name, mobile, region, passwordHash);
         if(!updateUser) {
             return res.status(401).json({ error: "User not found!" });
         }
@@ -50,9 +56,38 @@ const deleteUser = async (req, res) => {
     }
 }
 
+const loginUser = async (req, res, next) => {
+    passport.authenticate('local', (err, user, info) => {
+        if(err) {
+            return res.status(500).json({ error: "An error occured during login process" });
+        } 
+        if(!user) {
+            return res.status(401).json({ error: info.message });
+        }
+        req.login(user, (err) => {
+            if(err) {
+                return res.status(500).json({ error: "Failed to login" });
+            }
+            res.json({ message: "Login successful", user});
+        });
+    })(req, res, next);
+};
+
+const logoutUser = async (req, res) => {
+    req.logout(err => {
+        if(err) {
+            console.error(err);
+            return res.status(500).json({ message: "Unable to logout." });
+        }
+        res.json({ message: "Logout Successful."});
+    });
+};
+
 export {
     getAllUsers,
     createUser,
     updateUser,
-    deleteUser
+    deleteUser,
+    loginUser,
+    logoutUser
 };
