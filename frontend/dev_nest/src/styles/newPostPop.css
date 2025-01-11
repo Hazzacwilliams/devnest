@@ -1,0 +1,20 @@
+#newPostPopUp{
+    display: flex;
+    flex-direction: column;
+    height: 30vh;
+    width: 40vw;
+    border: 2px solid black;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#popUpTitle{
+    border: 1px solid grey;
+    width: 50%;
+}
+
+#popUpPost{
+    border: 1px solid grey;
+    width: 95%;
+    height: 40%;
+}

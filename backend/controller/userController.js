@@ -13,10 +13,8 @@ const getAllUsers = async (req, res) => {
 }
 
 const createUser = async (req, res) => {
-    console.log(req.body);
     const {username, email, name, mobile, region, password} = req.body;
     const passwordHash = await hashedPassword(password);
-    console.log(passwordHash);
     try {
         const newUser = await userModel.createUser(username, email, name, mobile, region, passwordHash);
         res.status(201).json(newUser)
@@ -71,6 +69,7 @@ const loginUser = async (req, res, next) => {
                 console.error(err);
                 return res.status(500).json({ error: "Failed to login" });
             }
+            req.session.userid = user.userid;
             res.json({ message: "Login successful", user});
         });
     })(req, res, next);

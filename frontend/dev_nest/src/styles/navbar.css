@@ -1,0 +1,57 @@
+#dashHeader{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    background-color: lightblue;
+    padding-bottom: 2vh;
+}
+
+#navbar{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: row;
+    width: 100vw;
+    margin-bottom: 2vh;
+    margin-top: 2vh;
+}
+
+.navbarButton{
+    width: 90px;
+    height: 90px;
+    border-radius: 100%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-color: white;
+}
+
+.navbarButton:hover{
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+    cursor: pointer;
+}
+
+#homeIcon{
+    max-width: 80px;
+    max-height: 80px;
+}
+
+#profileIcon{
+    max-width: 70px;
+    max-height: 70px;
+}
+
+#settingsIcon{
+    max-width: 70px;
+    max-height: 70px;
+}
+
+#searchBar{
+    width: 400px;
+    height: 30px;
+    border-radius: 10px;
+    border-color: lightgrey;
+}

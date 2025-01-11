@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from '../redux/slices/loginSlice';
+import { useNavigate } from 'react-router-dom';
 
 const LoginForm = () => {
 
@@ -12,6 +13,7 @@ const LoginForm = () => {
 
     //Set up dispatch for Redux Store
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const { loading, error } = useSelector((state) => state.login);
 
     //Saves current input value to useState
@@ -31,6 +33,7 @@ const LoginForm = () => {
             email: '',
             password: ''
         });
+        navigate('/dashboard');
     };
 
     return (
