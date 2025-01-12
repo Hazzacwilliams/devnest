@@ -1,7 +1,7 @@
 import express from 'express';
 import * as postController from '../controller/postController.js';
 import ensureAuthenticated from '../middleware/authMiddleware.js';
-import attachUserMiddleware from '../middleware/attachUserMiddleware,js';
+import attachUserMiddleware from '../middleware/attachUserMiddleware.js';
 
 const router = express.Router();
 

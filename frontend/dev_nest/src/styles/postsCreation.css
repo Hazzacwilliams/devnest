@@ -1,12 +1,6 @@
-#posts{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
+#newPostContainer{
+    width: 100vw;
     margin-top: 2vh;
-    width: 90vw;
-    height: 70vh;
-    border: 2px solid grey;
 }
 
 #newPostBtnContainer{
@@ -15,7 +9,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    transform: translate(0%, -100%);
 }
 
 #postPopUpContainer{

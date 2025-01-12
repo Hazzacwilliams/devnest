@@ -1,0 +1,20 @@
+#likesAndCommentsContainer{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-direction: row;
+    width: 100%;
+}
+
+#likeCounterContainer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+
+}
+
+#likeIcon{
+    height: 20px;
+    width: 20px;
+}

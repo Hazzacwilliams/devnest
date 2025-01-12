@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     height: 30vh;
-    width: 40vw;
+    width: 90vw;
     border: 2px solid black;
     justify-content: space-around;
     align-items: center;
@@ -16,5 +16,9 @@
 #popUpPost{
     border: 1px solid grey;
     width: 95%;
-    height: 40%;
+    height: 60%;
+}
+
+#closePopUp{
+    margin-top: 2vh;
 }

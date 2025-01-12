@@ -1,7 +1,8 @@
 import React from "react";
 import '../../styles/dashboard.css';
 import NavBar from "../../components/NavBar";
-import Posts from "./Posts";
+import PostsCreation from "./PostsCreation";
+import PostData from './PostData.jsx';
 
 function Dashboard() {
 
@@ -10,7 +11,8 @@ function Dashboard() {
     return (
         <div id="dashboard">
             <NavBar id="dashNavBar" />
-            <Posts />
+            <PostsCreation />
+            <PostData />
         </div>
     )
 }

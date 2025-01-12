@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import '../../styles/newPostPop.css';
 import { createNewPost } from "../../redux/slices/newPostSlice";
 
-function NewPostPop(){
+function NewPostPop({ closePopUp }){
 
     const [formData, setFormData] = useState({
         posttitle: '',
@@ -28,6 +28,11 @@ function NewPostPop(){
 
     }
 
+    const handleClose = (e) => {
+        e.preventDefault();
+        closePopUp();
+    }
+
     return (
         <form id="newPostPopUp" onSubmit={handleSubmit}>
             <input type="text" name="posttitle" value={formData.posttitle} placeholder="TITLE" id="popUpTitle" onChange={handleInput}></input>
@@ -35,9 +40,10 @@ function NewPostPop(){
             <button type="submit" disabled={loading}>
                 {loading ? 'Creating...' : 'Create Post'}
             </button>
+            <button id="closePopUp" type="button" onClick={handleClose}>Cancel</button>
             {error && <p style={{ color: 'red' }}>{error}</p>}
             {post && <p>Post created successfully: {post.title}</p>}
-        </form>
+        </form> 
     )
 };
 

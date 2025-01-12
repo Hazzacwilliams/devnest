@@ -3,8 +3,9 @@ import express from 'express';
 import passport from './config/authConfig.js';
 import userRoutes from './routes/userRoutes.js';
 import postRoutes from './routes/postRoutes.js';
+import likeRoutes from './routes/likeRoutes.js';
 import sessionMiddleware from './config/sessionConfig.js';
-import dbConfig from './config/dbConfig.js';
+
 
 dotenv.config();
 
@@ -20,6 +21,7 @@ app.use(passport.session());
 //Routes
 app.use('/users', userRoutes);
 app.use('/posts', postRoutes);
+app.use('/likes', likeRoutes);
 
 app.listen(port, () => {
     console.log(`Server running on http://localhost:${port}`);
