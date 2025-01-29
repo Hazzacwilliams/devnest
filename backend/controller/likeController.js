@@ -1,11 +1,13 @@
 import * as likeModel from '../models/likeModel.js';
 
 const getLikesByPostId = async (req, res) => {
-
-    const { postid } = req.body;
+    const { postid } = req.query;
     try{
         const likes = await likeModel.getLikesByPostId(postid);
-        res.json(likes);
+        if(!likes){
+            return res.status(404).json({ error: "No likes found for this post."});
+        }
+        res.json({ likes: likes });
     } catch (err) {
         console.error("Unable to fetch number of likes: ", err);
         res.status(500).json({ error: "Failed to fetch likes" });
@@ -24,7 +26,33 @@ const addLike = async (req, res) => {
     }
 }
 
+const removeLike = async (req, res) => {
+    const { postid } = req.params;
+    const userid = req.session.userid;
+    try {
+        const removeLike = await likeModel.removeLike(userid, postid);
+        res.status(201).json(removeLike);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "Failed to unlike post" });
+    }
+}
+
+const getAllPostLikes = async (req, res) => {
+    try{
+        const getAllPostLikes = await likeModel.getAllPostLikes();
+        res.status(201).json(getAllPostLikes);
+    } catch (err) {
+        console.error(`Failed to get all likes for post: ${err}`);
+        res.status(500).json({ error: 'Failed to fetch likes for post'});
+    }
+}
+
+
+
 export {
     getLikesByPostId,
-    addLike
+    addLike,
+    removeLike,
+    getAllPostLikes
 };

@@ -39,6 +39,7 @@ const RegisterForm = () => {
             region: '',
             password: ''
         })
+        alert('Account Successfully Created!');
     };
 
     return (

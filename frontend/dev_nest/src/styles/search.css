@@ -1,0 +1,21 @@
+#searchContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#filteredResultsContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+#filteredResults:hover{
+    cursor: pointer;
+}
+
+#searchBar{
+    min-width: 50vw;
+}

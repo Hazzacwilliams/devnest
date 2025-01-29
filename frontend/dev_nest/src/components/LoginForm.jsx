@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from '../redux/slices/loginSlice';
 import { useNavigate } from 'react-router-dom';
+import '../styles/loginForm.css';
 
 const LoginForm = () => {
 
@@ -26,14 +27,22 @@ const LoginForm = () => {
     };
 
     //Changes default behaviour of form submit
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        dispatch(loginUser(formData));
-        setFormData({
-            email: '',
-            password: ''
-        });
-        navigate('/dashboard');
+        try{
+            const result = await dispatch(loginUser(formData)).unwrap();
+            if(result){
+                navigate('/dashboard');
+                setFormData({
+                    email: '',
+                    password: ''
+                });
+            } else {
+                console.error("Login failed.", result.message);
+            }
+        } catch (err) {
+            console.error("Error during login", err);
+        }
     };
 
     return (

@@ -3,7 +3,6 @@ const attachUserMiddleware = (req, res, next) => {
         return res.status(500).json({ error: "Unauthorized!" });
     }
     req.userid = req.session.uderid;
-    console.log(req.userid);
     next();
 }
 

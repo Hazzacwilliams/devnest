@@ -3,6 +3,8 @@
     align-items: center;
     flex-direction: column;
     overflow: scroll;
+    background: linear-gradient(90deg, #ff8a00, #e52e71);
+    height: 100vh;
 }
 #dashNavBar{
     position: sticky;

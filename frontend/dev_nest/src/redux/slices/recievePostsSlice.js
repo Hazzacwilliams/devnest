@@ -3,9 +3,14 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 // Async Thunk to fetch all posts
 export const recievePosts = createAsyncThunk(
     'posts/recievePosts',
-    async (_, { rejectWithValue }) => {
+    async (userid, { rejectWithValue }) => {
         try {
-            const response = await fetch('http://localhost:3000/posts'); // Update to your API endpoint
+            const url = userid
+            ? `http://localhost:3000/posts?userid=${userid}`
+            : 'http://localhost:3000/posts';
+            
+            const response = await fetch(url);
+            console.log(`url inside recievePostsSlice is: ${url}`);
             if (!response.ok) {
                 throw new Error(`Failed to fetch posts: ${response.statusText}`);
             }
@@ -15,6 +20,8 @@ export const recievePosts = createAsyncThunk(
         }
     }
 );
+
+
 
 const postsSlice = createSlice({
     name: 'posts',
@@ -37,7 +44,7 @@ const postsSlice = createSlice({
             .addCase(recievePosts.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload;
-            });
+            })
     },
 });
 

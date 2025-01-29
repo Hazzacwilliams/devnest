@@ -19,7 +19,7 @@ function PostsCreation() {
         <div id="newPostContainer">
             <div id="newPostBtnContainer">
                 {!showCreatePost && (
-                    <button onClick={newPostClick} id="newPostBtn">NEW POST</button>
+                    <button onClick={newPostClick} id="newPostBtn">+</button>
                 )}
             </div>
             

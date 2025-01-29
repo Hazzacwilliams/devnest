@@ -3,22 +3,10 @@
     flex-direction: column;
     height: 30vh;
     width: 90vw;
-    border: 2px solid black;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
 }
 
-#popUpTitle{
-    border: 1px solid grey;
-    width: 50%;
-}
-
-#popUpPost{
-    border: 1px solid grey;
-    width: 95%;
-    height: 60%;
-}
-
-#closePopUp{
-    margin-top: 2vh;
+#newPostPopUp * {
+    margin-bottom: 2vh;
 }

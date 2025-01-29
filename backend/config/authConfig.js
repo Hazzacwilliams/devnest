@@ -27,14 +27,12 @@ passport.serializeUser((user, done) => {
         console.error('Failed to serialize user: Missing userID', user);
         return done(new Error('Missing userID'));
     }
-    console.log("User serialized successfully!");
     done(null, user.userid); // Ensure `user.userID` is valid
 });
 
 passport.deserializeUser(async (userid, done) => {
     try {
         const user = await userModel.getUserById(userid);
-        console.log(user);
         done(null, user);
     } catch (err) {
         done(err);

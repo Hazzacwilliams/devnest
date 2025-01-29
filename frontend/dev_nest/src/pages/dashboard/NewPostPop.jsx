@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import '../../styles/newPostPop.css';
 import { createNewPost } from "../../redux/slices/newPostSlice";
+import { recievePosts } from "../../redux/slices/recievePostsSlice";
 
 function NewPostPop({ closePopUp }){
 
@@ -25,7 +26,8 @@ function NewPostPop({ closePopUp }){
         e.preventDefault();
         console.log("Form data being sent to redux: ", formData);
         dispatch(createNewPost(formData));
-
+        dispatch(recievePosts());
+        closePopUp();
     }
 
     const handleClose = (e) => {

@@ -1,3 +1,16 @@
+body{
+    min-height: 100vh;
+}
+
+h1 {
+    font-size: 3rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(90deg, #ff8a00, #e52e71);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
 
 #homeContainer{
     height: 100vh;
@@ -13,28 +26,50 @@
     flex-grow: 1;
     width: 90%;
     margin-bottom: 20px;
+    position: relative;
 }
 .homePanel{
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: center;    
     text-align: center;
     flex-direction: column;
     width: 49%;
     height: 98%;
+    transition: background-position 0.5s ease-in-out, transform 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
+    position: relative;
+    cursor: pointer;
+    background: #e52e71;
+    background-size: 200% 200%;
+    transform-origin: center;
+
 }
 #leftPanel{
-    background-color: paleturquoise;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
+    border-radius: 10px;
     height: 90%;
-    box-shadow: -0.5em -0.5em .4em grey;
+    z-index: 1;
 }
 #rightPanel{
-    background-color: seagreen;
     border-radius: 10px;
-    box-shadow: -0.5em -0.5em .4em grey;
+    height: 90%;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
+
+.homePanel.activePanel{
+    transform: scale (1.1) !important;
+    z-index: 2 !important;
+    height: 100% !important;
+    width: 80%;
+    background: #ff8a00;
+    background-size: 200% 200%;
+    background-position: bottom right;
+    box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3) !important;
+}
+
 #registerForm{
     display: flex;
     justify-content: center;
@@ -42,9 +77,35 @@
     flex-direction: column;
     text-align: center;
 }
-input{
+input {
+    width: 80%;
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 10px;
+    border: none;
+    box-shadow: inset 3px 3px 5px rgba(255, 255, 255, 0.6),
+                inset -3px -3px 5px rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    color: black;
     text-align: center;
-    margin-top: 5px;
-    border-radius: 5px;
-    height: 20px;
 }
+
+button {
+    padding: 10px 20px;
+    border: none;
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-radius: 20px;
+    background: linear-gradient(135deg, #ff8a00, #e52e71);
+    color: white;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+

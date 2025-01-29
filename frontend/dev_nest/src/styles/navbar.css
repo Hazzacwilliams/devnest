@@ -4,7 +4,6 @@
     align-items: center;
     justify-content: center;
     width: 100vw;
-    background-color: lightblue;
     padding-bottom: 2vh;
 }
 
@@ -19,14 +18,15 @@
 }
 
 .navbarButton{
-    width: 90px;
-    height: 90px;
+    width: 40px;
+    height: 40px;
     border-radius: 100%;
     text-align: center;
     display: flex;
     justify-content: center;
     align-items: center;
     border-color: white;
+    overflow: hidden;
 }
 
 .navbarButton:hover{
@@ -34,24 +34,17 @@
     cursor: pointer;
 }
 
-#homeIcon{
-    max-width: 80px;
-    max-height: 80px;
+img{
+    max-width: 30px;
+    max-height: 30px;
 }
 
 #profileIcon{
-    max-width: 70px;
-    max-height: 70px;
+    max-width: 60px !important;
+    max-height: 60px !important;
 }
 
-#settingsIcon{
-    max-width: 70px;
-    max-height: 70px;
-}
-
-#searchBar{
-    width: 400px;
-    height: 30px;
-    border-radius: 10px;
-    border-color: lightgrey;
+#homeIcon{
+    min-width: 40px !important;
+    min-height: 40px !important;
 }

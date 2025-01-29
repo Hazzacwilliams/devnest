@@ -24,13 +24,27 @@ const createUser = async (req, res) => {
     }
 }
 
+const getUserById = async (req, res) => {
+    const { userID } = req.params;
+    try {
+        const getUserById = await userModel.getUserById(userID);
+        if(!getUserById) {
+            return res.status(401).json({ error: "User info not found!"});
+        }
+        res.json(getUserById);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "Failed to get user info"});
+    }
+}
+
 const updateUser = async (req, res) => {
     const { userID } = req.params;
     const {username, email, name, mobile, region, password} = req.body;
     const passwordHash = await hashedPassword(password);
     try {
         const updatedUser = await userModel.updateUser(userID, username, email, name, mobile, region, passwordHash);
-        if(!updateUser) {
+        if(!updatedUser) {
             return res.status(401).json({ error: "User not found!" });
         }
         res.json(updatedUser)
@@ -55,7 +69,6 @@ const deleteUser = async (req, res) => {
 }
 
 const loginUser = async (req, res, next) => {
-    console.log(req.body);
     passport.authenticate('local', (err, user, info) => {
         if(err) {
             return res.status(500).json({ error: "An error occured during login process" });
@@ -64,7 +77,6 @@ const loginUser = async (req, res, next) => {
             return res.status(401).json({ error: info.message });
         }
         req.login(user, (err) => {
-            console.log(user);
             if(err) {
                 console.error(err);
                 return res.status(500).json({ error: "Failed to login" });
@@ -85,11 +97,26 @@ const logoutUser = async (req, res) => {
     });
 };
 
+const uploadProfilePicture = async (req, res) => {
+    const { userid } = req.params;
+    console.log(`This is userid inside uploadProfilePicture = ${userid}`);
+    const profilePictureUrl = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
+    try {
+        const updatedUser = await userModel.updateUserProfilePicture(userid, profilePictureUrl);
+        res.json(updatedUser);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "Unable to upload profile picture"});
+    }
+}
+
 export {
     getAllUsers,
     createUser,
+    getUserById,
     updateUser,
     deleteUser,
     loginUser,
-    logoutUser
+    logoutUser,
+    uploadProfilePicture
 };

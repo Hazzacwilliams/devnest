@@ -1,0 +1,39 @@
+#settingsPage {
+    background: linear-gradient(90deg, #ff8a00, #e52e71);
+    overflow: scroll;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 60%;
+}
+
+input {
+    width: 35% ; 
+}
+
+#profilePictureSettings {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#profilePictureUpload {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+
+#profilePictureUpload * {
+    margin-right: 2vw;
+}

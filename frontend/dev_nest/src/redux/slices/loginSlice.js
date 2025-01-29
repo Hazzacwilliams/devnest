@@ -29,7 +29,11 @@ const loginSlice = createSlice({
         loading: false,
         error: null,
     },
-    reducers: {},
+    reducers: {
+        logout(state){
+            state.user = null;
+        },
+    },
     extraReducers: (builder) => {
         builder
             .addCase(loginUser.pending, (state) => {
@@ -38,7 +42,7 @@ const loginSlice = createSlice({
             })
             .addCase(loginUser.fulfilled, (state, action) => {
                 state.loading = false;
-                state.user = action.payload;
+                state.user = action.payload.user;
             })
             .addCase(loginUser.rejected, (state, action) => {
                 state.loading = false;
@@ -47,4 +51,5 @@ const loginSlice = createSlice({
     },
 });
 
+export const { logout } = loginSlice.actions;
 export default loginSlice.reducer;

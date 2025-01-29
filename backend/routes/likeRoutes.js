@@ -6,7 +6,9 @@ import attachUserMiddleware from '../middleware/attachUserMiddleware.js';
 const router = express.Router();
 
 //Protected routes
-router.get('/', ensureAuthenticated, likeController.getLikesByPostId);
+router.get('/', likeController.getLikesByPostId);
 router.post('/', ensureAuthenticated, attachUserMiddleware, likeController.addLike);
+router.delete('/:postid', ensureAuthenticated, attachUserMiddleware, likeController.removeLike);
+router.get('/all', likeController.getAllPostLikes);
 
 export default router;

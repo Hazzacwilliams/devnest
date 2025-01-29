@@ -6,13 +6,13 @@ import PostData from './PostData.jsx';
 
 function Dashboard() {
 
-
+    const dOrP = "dashboard";
 
     return (
         <div id="dashboard">
             <NavBar id="dashNavBar" />
             <PostsCreation />
-            <PostData />
+            <PostData dOrP={dOrP}/>
         </div>
     )
 }

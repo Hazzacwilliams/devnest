@@ -7,6 +7,8 @@ const router = express.Router();
 
 //Protected Routes
 router.get('/', ensureAuthenticated, postController.getAllPosts);
+router.get('/:userid', ensureAuthenticated, postController.getAllPostsByUserId);
 router.post('/', ensureAuthenticated, attachUserMiddleware, postController.createPost);
+
 
 export default router;
