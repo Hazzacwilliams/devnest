@@ -12,10 +12,15 @@ export const getAllPostsByUserId = async(userid) => {
     return result.rows;
 }
 
-export const createPost = async (userid, posttitle, postdata) => {
+export const createPost = async (userid, posttitle, postdata, postmedia) => {
     const result = await pool.query(
-        `INSERT INTO multimedia_posts (userid, postdata, posttitle) VALUES ($1, $2, $3) RETURNING *`,
-        [userid, postdata, posttitle]
+        `INSERT INTO multimedia_posts (userid, postdata, posttitle, postmedia) VALUES ($1, $2, $3, $4) RETURNING *`,
+        [userid, postdata, posttitle, postmedia]
     );
+    return result.rows[0];
+}
+
+export const getPostById = async (postid) => {
+    const result = await pool.query('SELECT * FROM multimedia_posts WHERE postid = $1', [postid]);
     return result.rows[0];
 }

@@ -6,21 +6,30 @@ import LikesAndComments from "../../components/LikesAndComments";
 import { fetchAllLikes } from "../../redux/slices/likesSlice";
 import RetrieveComments  from "../../components/RetrieveComments.jsx";
 import Comments from "../../components/Comments.jsx";
+import { getAllFriends } from "../../redux/slices/friendSlice.js";
 
 function PostData({ dOrP, userid }){
 
     const dispatch = useDispatch();
     const { posts, loading, error } = useSelector((state) => state.posts);
-    const user = useSelector((state) => state.login.user)
+    const allFriends = useSelector((state) => state.friend.allFriends) || [];
     const [isVisible, setIsVisible] = useState({});
     
 
     useEffect(() => {
         dispatch(fetchAllLikes());
         dispatch(recievePosts());
+        dispatch(getAllFriends());
     }, [dispatch, userid, dOrP]);
 
-    const filteredPosts = dOrP === "dashboard" ? posts : posts.filter((post) => post.userid === userid);
+    const friendsList = allFriends
+    .filter(friend => friend.status === "a") 
+    .flatMap(friend => [friend.userid1, friend.userid2]) 
+    .filter(id => id !== userid); 
+
+    const filteredPosts = dOrP === "dashboard"
+    ? posts.filter(post => friendsList.includes(post.userid)) 
+    : posts.filter(post => post.userid === userid); 
 
     const toggleComments = (postid) => {
         setIsVisible((prev) => ({
@@ -30,10 +39,8 @@ function PostData({ dOrP, userid }){
     };
 
     const calculateTimeElapsed = (dateCreated) => {
-        console.log(dateCreated);
         const now = new Date();
         const created = new Date(dateCreated);
-        console.log(`created: ${created}`);
         const diffInSeconds = Math.floor((now - created) / 1000);
     
         const days = Math.floor(diffInSeconds / (24 * 60 * 60));
@@ -54,12 +61,27 @@ function PostData({ dOrP, userid }){
                     {filteredPosts.length === 0 ? <h3>No Posts for user yet!</h3> :
                     filteredPosts.map((post) => (
                         <div key={post.postid} className="postItem">
-                            {console.log(posts)}
                             <div id="postBannerContainer">
                                 <h2>{post.posttitle} - {post.username}</h2>
+                                
                                 <p>{calculateTimeElapsed(post.date_created)}</p>
                             </div>
                             <p id="postData">{post.postdata}</p>
+                            
+                            {post.postmedia && (() => {
+                                const mediaArray = JSON.parse(post.postmedia); // Extract the first media file
+                                if(mediaArray.length !== 0){
+                                    const media = mediaArray[0];
+                                    if (media.match(/\.(jpeg|jpg|png|gif)$/)) {
+                                        return <img src={`http://localhost:3000/${media}`} id="postMediaImg" alt="Post media" />;
+                                    } else if (media.match(/\.(mp4|mov)$/)) {
+                                        return <video src={`http://localhost:3000/${media}`} id="postMediaVid" controls />;
+                                    } else {
+                                        return <p>Unsupported media format</p>;
+                                    }
+                                }
+                            })()}
+                            
                             <LikesAndComments postid={post.postid} toggleComments={toggleComments}/>
                             {isVisible[post.postid] && (
                                 <>

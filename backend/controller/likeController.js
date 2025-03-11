@@ -1,4 +1,6 @@
 import * as likeModel from '../models/likeModel.js';
+import * as postModel from '../models/postModels.js';
+import * as notificationModel from '../models/notificationModel.js';
 
 const getLikesByPostId = async (req, res) => {
     const { postid } = req.query;
@@ -19,6 +21,10 @@ const addLike = async (req, res) => {
     const userid = req.session.userid;
     try{
         const addLike = await likeModel.addLike(userid, postid);
+        const post = await postModel.getPostById(postid);
+        if(post.userid !== userid){
+            await notificationModel.createNotification(post.userid, userid, 'like', postid);
+        }
         res.status(201).json(addLike);
     } catch (err) {
         console.error(err);

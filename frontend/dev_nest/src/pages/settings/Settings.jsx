@@ -1,11 +1,15 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import NavBar from "../../components/NavBar";
 import { updateUserInfo } from "../../redux/slices/getUserInfoSlice";
 import ProfilePictureUpload from '../../components/ProfilePictureUpload';
 import '../../styles/settings.css';
+import { logout } from '../../redux/slices/loginSlice';
 
 function Settings() {
+
+    const navigate = useNavigate();
 
     const [formData, setFormData] = useState({ 
             username: '',
@@ -41,6 +45,11 @@ function Settings() {
         })
     }
 
+    const handleLogOut = () => {
+        dispatch(logout());
+        navigate("/login");
+    }
+
     return (
         <div id="settingsPage">
             <NavBar />
@@ -60,10 +69,7 @@ function Settings() {
                 <ProfilePictureUpload />
             </div>
             <div>
-                <h2>Change website theme</h2>
-                <h3>light</h3>
-                <h3>dark</h3>
-                <h3>colourful</h3>
+                <button onClick={handleLogOut}>Log Out</button>
             </div>
         </div>
     )

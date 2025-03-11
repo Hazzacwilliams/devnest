@@ -1,13 +1,18 @@
 import * as commentModel from '../models/commentModel.js';
+import * as postModel from '../models/postModels.js';
+import * as notificationModel from '../models/notificationModel.js';
 
 const addComment = async (req, res) => {
     const { postid, commentData} = req.body;
     const userid = req.session.userid;
     try{
         const addComment = await commentModel.addComment(userid, postid, commentData);
-        console.log(addComment);
         if(!addComment){
             return res.status(404).json({ error: "Unable to add comment."})
+        }
+        const post = await postModel.getPostById(postid);
+        if(post.userid !== userid){
+            await notificationModel.createNotification(post.userid, userid, 'comment', postid);
         }
         return res.status(201).json(addComment);
     } catch (err) {

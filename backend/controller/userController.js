@@ -98,7 +98,7 @@ const logoutUser = async (req, res) => {
 };
 
 const uploadProfilePicture = async (req, res) => {
-    const { userid } = req.params;
+    const userid = req.session.userid;
     console.log(`This is userid inside uploadProfilePicture = ${userid}`);
     const profilePictureUrl = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
     try {

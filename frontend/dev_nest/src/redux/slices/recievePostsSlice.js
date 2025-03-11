@@ -10,7 +10,6 @@ export const recievePosts = createAsyncThunk(
             : 'http://localhost:3000/posts';
             
             const response = await fetch(url);
-            console.log(`url inside recievePostsSlice is: ${url}`);
             if (!response.ok) {
                 throw new Error(`Failed to fetch posts: ${response.statusText}`);
             }

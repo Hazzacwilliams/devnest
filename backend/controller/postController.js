@@ -3,7 +3,6 @@ import * as postModel from '../models/postModels.js';
 const getAllPosts = async (req, res) => {
     try {
         const posts = await postModel.getAllPosts();
-        console.log("Do I fire once? - postController.")
         res.json(posts);
     } catch (err) {
         console.error(`Unable to fetch posts: ${err}`);
@@ -24,10 +23,10 @@ const getAllPostsByUserId = async (req, res) => {
 
 const createPost = async (req, res) => {
     const { posttitle, postdata } = req.body;
-    console.log(`posttitle = ${posttitle} and postdata = ${postdata}`);
     const userid = req.session.userid;
+    const mediaFiles = req.files ? req.files.map(file => `uploads/posts/${file.filename}`) : null;
     try {
-        const newPost = await postModel.createPost(userid, posttitle, postdata);
+        const newPost = await postModel.createPost(userid, posttitle, postdata, JSON.stringify(mediaFiles));
         res.status(201).json(newPost);
     } catch (err) {
         console.error(err);

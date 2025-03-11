@@ -49,3 +49,14 @@
 #postData{
     font-size: large;
 }
+
+#postMediaImg{
+    min-height: 200px;
+    min-width: 200px;
+    
+}
+
+#postMediaVid {
+    max-height: 500px;
+    max-width: auto;
+}

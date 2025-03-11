@@ -13,7 +13,7 @@ function ProfilePictureUpload({ userid }) {
         formData.append('profilePicture', file);
 
         try {
-            const response = await fetch(`http://localhost:3000/users/upload-profile-picture/${userid}`, {
+            const response = await fetch(`http://localhost:3000/users/upload-profile-picture`, {
                 method: 'POST',
                 body: formData,
             });

@@ -3,7 +3,6 @@ import pool from "../config/dbConfig.js";
 export const getLikesByPostId = async (postid) => {
     try { 
         const result = await pool.query('SELECT COUNT(*) AS count FROM likes WHERE postid = $1', [postid]);
-        console.log(result.rows[0]);
         return parseInt(result.rows[0].count, 10);
     } catch (err) {
         console.error(`Error fetching like for ${postid}: ${err.message}`);

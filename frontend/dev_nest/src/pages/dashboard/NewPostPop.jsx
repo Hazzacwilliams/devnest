@@ -10,6 +10,7 @@ function NewPostPop({ closePopUp }){
         posttitle: '',
         postdata: ''
     });
+    const [media, setMedia] = useState();
 
     const dispatch = useDispatch();
     const { post, loading, error } = useSelector((state) => state.newPost);
@@ -22,10 +23,19 @@ function NewPostPop({ closePopUp }){
         }));
     };
 
+    const handleFileChange = (e) => {
+        setMedia([...e.target.files]);
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log("Form data being sent to redux: ", formData);
-        dispatch(createNewPost(formData));
+        const formDataToSend = new FormData();
+        formDataToSend.append("posttitle", formData.posttitle);
+        formDataToSend.append("postdata", formData.postdata);
+        if(media){
+            media.forEach(file => formDataToSend.append("media", file));
+        }
+        dispatch(createNewPost(formDataToSend));
         dispatch(recievePosts());
         closePopUp();
     }
@@ -39,6 +49,7 @@ function NewPostPop({ closePopUp }){
         <form id="newPostPopUp" onSubmit={handleSubmit}>
             <input type="text" name="posttitle" value={formData.posttitle} placeholder="TITLE" id="popUpTitle" onChange={handleInput}></input>
             <input type="text" name="postdata" value={formData.postdata} placeholder="TYPE NEW POST..." id="popUpPost" onChange={handleInput}></input>
+            <input type="file" name="postmedia" onChange={handleFileChange} multiple accept="image/*,video/*"></input>
             <button type="submit" disabled={loading}>
                 {loading ? 'Creating...' : 'Create Post'}
             </button>

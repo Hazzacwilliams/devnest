@@ -3,10 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import NavBar from "../../components/NavBar";
 import PostData from "../dashboard/PostData";
 import FriendsList from "../../components/FriendsList";
-
-import ProfilePictureUpload from "../../components/ProfilePictureUpload";
 import { getUserInfo } from "../../redux/slices/getUserInfoSlice";
-
 import profileImg from '../../assets/navbar/profile.png';
 import '../../styles/profile.css';
 import { useParams } from "react-router-dom";
@@ -49,6 +46,18 @@ function Profile() {
         dispatch(addFriend({userid2, status}));
     }
 
+    const isFriendRequestPending = allFriends.some(
+        (friend) => 
+        (friend.userid1 === loggedInUser.userid && friend.userid2 === user.userid && friend.status === "p") ||
+        (friend.userid2 === loggedInUser.userid && friend.userid1 === user.userid && friend.status === "p")
+    );
+    
+    const isAlreadyFriend = allFriends.some(
+        (friend) =>
+            (friend.userid1 === loggedInUser.userid && friend.userid2 === user.userid && friend.status === "a") ||
+            (friend.userid2 === loggedInUser.userid && friend.userid1 === user.userid && friend.status === "a")
+    );
+
     if(!user) {
         return <p>User not found</p>
     }
@@ -66,8 +75,12 @@ function Profile() {
                 <h2>{user.name}</h2>
                 <h3>{user.username}</h3>
                 <span>{user.region}</span>
-                {profileType === 'foreignProfile' && <button onClick={() => addFriendFunc(userid, "p")}>Add User</button>}
-                <button onClick={() => setIsClicked(!isClicked)}>Friends: {allFriends.filter(friend => friend.userid1 === user.userid || friend.userid2 === user.userid).length}</button>
+                {profileType === 'foreignProfile' && !isFriendRequestPending && !isAlreadyFriend && (<button onClick={() => addFriendFunc(userid, "p")}>Add User</button>)}
+                {profileType === 'foreignProfile' && isFriendRequestPending && (<span>Friend request pending...</span>)}
+                {profileType === 'foreignProfile' && isAlreadyFriend && (<span>Already friends!</span>)}
+                {profileType === "userProfile" && (
+                    <button onClick={() => setIsClicked(!isClicked)}>Friends: {allFriends.filter(friend => friend.userid1 === user.userid || friend.userid2 === user.userid).length}</button>
+                )}
                 
             </div>
             {isClicked &&

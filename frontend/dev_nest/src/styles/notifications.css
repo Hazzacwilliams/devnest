@@ -35,10 +35,29 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: row;
+    flex-direction: column;
 }
 
 #acceptButton{
     margin: 10px;
+}
+
+.notification-section {
+    margin-bottom: 10px;
+}
+
+.notification {
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+}
+
+.unread {
+    background: #f0f8ff; /* Light blue for unread notifications */
+    font-weight: bold;
+}
+
+.read {
+    background: #f9f9f9; /* Light grey for seen notifications */
+    color: grey;
 }
 

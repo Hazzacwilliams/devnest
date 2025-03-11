@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 function FriendsList ({ allFriends, profileOwner }) {
 
@@ -10,7 +10,7 @@ function FriendsList ({ allFriends, profileOwner }) {
         if (!profileOwner) return;
 
         const profileOwnerFriends = allFriends.filter(
-            (friend) => friend.userid1 === profileOwner.userid || friend.userid2 === profileOwner.userid
+            (friend) => (friend.userid1 === profileOwner.userid || friend.userid2 === profileOwner.userid) && friend.status === 'a'
         );
 
         const detailedFriends = profileOwnerFriends.map((friend) => {
@@ -24,7 +24,7 @@ function FriendsList ({ allFriends, profileOwner }) {
 
         setFriendWithDetails(detailedFriends);
     }, [allFriends, profileOwner, allUserInfo]);
-
+    
 
     return (
         <div id="friendsList">

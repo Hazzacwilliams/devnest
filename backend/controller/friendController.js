@@ -1,4 +1,5 @@
 import * as friendsModel from '../models/friendsModel.js';
+import * as notificationModel from '../models/notificationModel.js';
 
 const addFriend = async (req, res) => {
     const { userid2, status } = req.body; 
@@ -8,6 +9,7 @@ const addFriend = async (req, res) => {
         if(!addFriend){
             return res.status(404).json({ error: "Unable to add friend" });
         }
+        await notificationModel.createNotification(userid2, userid1, 'friendRequest');
         return res.status(201).json(addFriend);
     } catch (err) {
         console.error(`Unable to add friend: ${err}`);

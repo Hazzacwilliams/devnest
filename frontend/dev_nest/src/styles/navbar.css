@@ -17,6 +17,11 @@
     margin-top: 2vh;
 }
 
+#appTitle {
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: white !important;
+}
+
 .navbarButton{
     width: 40px;
     height: 40px;

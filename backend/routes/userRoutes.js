@@ -17,6 +17,6 @@ router.get('/:userID', ensureAuthenticated, userController.getUserById);
 router.put('/:userID', ensureAuthenticated, userController.updateUser);
 router.delete('/:userID', ensureAuthenticated, userController.deleteUser);
 router.get('/logout', ensureAuthenticated, userController.logoutUser);
-router.post('/upload-profile-picture/:userid', upload.single('profilePicture'), userController.uploadProfilePicture);
+router.post('/upload-profile-picture', upload.single('profilePicture'), userController.uploadProfilePicture);
 
 export default router;

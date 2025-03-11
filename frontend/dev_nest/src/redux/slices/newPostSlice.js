@@ -7,10 +7,7 @@ export const createNewPost = createAsyncThunk(
         try {
             const response = await fetch('http://localhost:3000/posts', {
                 method: "POST",
-                headers: {
-                    "Content-Type" : "application/json"
-                },
-                body: JSON.stringify(formData),
+                body: formData,
             })
             console.log("API payload request", JSON.stringify(formData));
             if(!response.ok){

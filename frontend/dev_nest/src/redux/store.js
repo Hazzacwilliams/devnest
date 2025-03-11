@@ -7,6 +7,7 @@ import likesSliceReducer from './slices/likesSlice';
 import getUserInfoReducer from './slices/getUserInfoSlice';
 import commentReducer from './slices/commentsSlice';
 import friendReducer from './slices/friendSlice';
+import notificationReducer from './slices/notificationsSlice';
 
 const store = configureStore({
     reducer: {
@@ -18,6 +19,7 @@ const store = configureStore({
         user: getUserInfoReducer,
         comment: commentReducer,
         friend: friendReducer,
+        notification: notificationReducer,
     },
 });
 

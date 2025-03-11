@@ -5,7 +5,6 @@ export const getUserInfo = createAsyncThunk(
     async (userid, { rejectWithValue }) => {
         try {
             const response = await fetch(`http://localhost:3000/users?userid=${userid}`);
-            console.log(response);
             if(!response.ok) {
                 throw new Error(`Failed to reciever user info: ${response.statusText}`);
             }
@@ -20,7 +19,7 @@ export const updateUserInfo = createAsyncThunk(
     'users/updateUserInfo',
     async ({ userid, userData }, { rejectWithValue }) => {
         try {
-            const response = await fetch(`http://localhost:3000/users/${userid}`, {
+            const response = await fetch(`http://localhost:3000/users`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
