@@ -4,7 +4,8 @@ export const addComment = createAsyncThunk(
     "comments/addComments",
     async ({ postid, commentData }, { rejectWithValue }) => {
         try {
-            const response = await fetch(`http://localhost:3000/comments`, {
+            const response = await fetch(`${import.meta.env.REACT_APP_BACKEND_URL}
+/comments`, {
                 method: "POST",
                 headers:{
                     "Content-Type": "application/json",
@@ -25,7 +26,8 @@ export const getAllComments = createAsyncThunk(
     "comments/getAllComments",
     async(_, { rejectWithValue }) => {
         try {
-            const response = await fetch(`http://localhost:3000/comments`);
+            const response = await fetch(`${import.meta.env.REACT_APP_BACKEND_URL}
+/comments`);
             if(!response) {
                 throw new Error(`Failed to retrieve all comments.`);
             }

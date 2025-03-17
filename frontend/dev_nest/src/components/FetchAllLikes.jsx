@@ -4,7 +4,8 @@ const FetchAllLikes = async () => {
 
     const [likes, setLikes] = useState({});
 
-    const response = await fetch("http://localhost:3000/likes/all");
+    const response = await fetch("${import.meta.env.REACT_APP_BACKEND_URL}
+/likes/all");
     const data = await response.json();
 
     // Transform data into a dictionary for easy access

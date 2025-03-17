@@ -73,9 +73,11 @@ function PostData({ dOrP, userid }){
                                 if(mediaArray.length !== 0){
                                     const media = mediaArray[0];
                                     if (media.match(/\.(jpeg|jpg|png|gif)$/)) {
-                                        return <img src={`http://localhost:3000/${media}`} id="postMediaImg" alt="Post media" />;
+                                        return <img src={`${import.meta.env.REACT_APP_BACKEND_URL}
+/${media}`} id="postMediaImg" alt="Post media" />;
                                     } else if (media.match(/\.(mp4|mov)$/)) {
-                                        return <video src={`http://localhost:3000/${media}`} id="postMediaVid" controls />;
+                                        return <video src={`${import.meta.env.REACT_APP_BACKEND_URL}
+/${media}`} id="postMediaVid" controls />;
                                     } else {
                                         return <p>Unsupported media format</p>;
                                     }
