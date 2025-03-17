@@ -5,8 +5,7 @@ export const addLike = createAsyncThunk(
   "likes/addLike",
   async ({ postid, userid }, { rejectWithValue }) => {
     try {
-      const response = await fetch("${import.meta.env.REACT_APP_BACKEND_URL}
-/likes", {
+      const response = await fetch(`${import.meta.env.REACT_APP_BACKEND_URL}/likes`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ postid, userid }),
@@ -27,8 +26,7 @@ export const removeLike = createAsyncThunk(
   async ({ postid }, { rejectWithValue }) => {
     console.log(`postid inside removeLike is ${postid}`);
     try {
-      const response = await fetch(`${import.meta.env.REACT_APP_BACKEND_URL}
-/likes/${postid}`, {
+      const response = await fetch(`${import.meta.env.REACT_APP_BACKEND_URL}/likes/${postid}`, {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
       })
@@ -47,8 +45,7 @@ export const getLikes = createAsyncThunk(
   "likes/getLikes",
   async (postid, { rejectWithValue }) => {
     try {
-      const response = await fetch(`${import.meta.env.REACT_APP_BACKEND_URL}
-/likes?postid=${postid}`);
+      const response = await fetch(`${import.meta.env.REACT_APP_BACKEND_URL}/likes?postid=${postid}`);
       if (!response.ok) {
         throw new Error("Failed to fetch likes for the post");
       }
@@ -64,8 +61,7 @@ export const fetchAllLikes = createAsyncThunk(
   "likes/fetchAllLikes",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await fetch("${import.meta.env.REACT_APP_BACKEND_URL}
-/likes/all");
+      const response = await fetch(`${import.meta.env.REACT_APP_BACKEND_URL}/likes/all`);
       if (!response.ok) {
         throw new Error("Failed to fetch all likes");
       }

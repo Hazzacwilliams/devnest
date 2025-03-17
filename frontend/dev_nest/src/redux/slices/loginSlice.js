@@ -4,8 +4,7 @@ export const loginUser = createAsyncThunk(
     'users/loginUser',
     async (formData, { rejectWithValue }) => {
         try {
-            const response = await fetch('${import.meta.env.REACT_APP_BACKEND_URL}
-/users/login', {
+            const response = await fetch(`${import.meta.env.REACT_APP_BACKEND_URL}/users/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

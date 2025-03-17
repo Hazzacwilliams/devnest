@@ -4,8 +4,7 @@ export const getNotificationsByUserId = createAsyncThunk(
     "notifications/getNotificationsByUserId",
     async (_, { rejectWithValue }) => {
         try {
-            const response = await fetch(`${import.meta.env.REACT_APP_BACKEND_URL}
-/notifications`);
+            const response = await fetch(`${import.meta.env.REACT_APP_BACKEND_URL}/notifications`);
             if(!response.ok){
                 throw new Error("Failed to fetch notifications");
             }
@@ -20,8 +19,7 @@ export const updateNotificationStatus = createAsyncThunk(
     "notifications/updateNotificationStatus",
     async(notificationid, { rejectWithValue }) => {
         try {
-            const response = await fetch('${import.meta.env.REACT_APP_BACKEND_URL}
-/notifications', {
+            const response = await fetch(`${import.meta.env.REACT_APP_BACKEND_URL}/notifications`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
