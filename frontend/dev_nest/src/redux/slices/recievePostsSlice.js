@@ -5,11 +5,12 @@ export const recievePosts = createAsyncThunk(
     'posts/recievePosts',
     async (userid, { rejectWithValue }) => {
         try {
+            const token = localStorage.getItem('token');
             const url = userid
             ? `${process.env.REACT_APP_BACKEND_URL}/posts?userid=${userid}`
             : `${process.env.REACT_APP_BACKEND_URL}/posts`;
             
-            const response = await fetch(url, { credentials: 'include' });
+            const response = await fetch(url, { headers: { "Authorization": `Bearer ${token}` } });
             if (!response.ok) {
                 throw new Error(`Failed to fetch posts: ${response.statusText}`);
             }

@@ -4,7 +4,8 @@ export const getUserInfo = createAsyncThunk(
     'users/getUserInfo',
     async (userid, { rejectWithValue }) => {
         try {
-            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/users?userid=${userid}`, { credentials: 'include' });
+            const token = localStorage.getItem('token');
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/users?userid=${userid}`, { headers: { "Authorization": `Bearer ${token}`} });
             if(!response.ok) {
                 throw new Error(`Failed to reciever user info: ${response.statusText}`);
             }
@@ -19,10 +20,12 @@ export const updateUserInfo = createAsyncThunk(
     'users/updateUserInfo',
     async ({ userid, userData }, { rejectWithValue }) => {
         try {
+            const token = localStorage.getItem('token');
             const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/users`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`,
                 },
                 body: JSON.stringify(userData),
                 credentials: 'include',
@@ -41,7 +44,8 @@ export const getAllUserInfo = createAsyncThunk(
     'users/getAllUserInfo',
     async (_, { rejectWithValue }) => {
         try {
-            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/users`, { credentials: 'include' });
+            const token = localStorage.getItem('token');
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/users`, { headers: { "Authorization": `Bearer ${token}` } });
             if(!response.ok){
                 throw new Error(`Failed to get all users: ${response.statusText}`);
             }

@@ -3,10 +3,13 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 export const createNewPost = createAsyncThunk(
     'posts/createNewPost',
     async (formData, { rejectWithValue }) => {
-        console.log("Form data recieved: ", formData);
+        const token = localStorage.getItem('token');
         try {
             const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/posts`, {
                 method: "POST",
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                },
                 body: formData,
                 credentials: 'include',
             })

@@ -4,13 +4,14 @@ export const addComment = createAsyncThunk(
     "comments/addComments",
     async ({ postid, commentData }, { rejectWithValue }) => {
         try {
+            const token = localStorage.getItem('token');
             const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/comments`, {
                 method: "POST",
                 headers:{
                     "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
                 },
                 body: JSON.stringify({ postid, commentData }),
-                credentials: 'include',
             })
             if (!response.ok) {
                 throw new Error("Failed to add comment");
@@ -26,8 +27,9 @@ export const getAllComments = createAsyncThunk(
     "comments/getAllComments",
     async(_, { rejectWithValue }) => {
         try {
-            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/comments`, { credentials: 'include' });
-            if(!response) {
+            const token = localStorage.getItem('token');
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/comments`, { headers: { "Authorization": `Bearer ${token}`} });
+            if(!response.ok) {
                 throw new Error(`Failed to retrieve all comments.`);
             }
             return await response.json();

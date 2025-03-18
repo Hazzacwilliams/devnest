@@ -4,7 +4,7 @@ export const loginUser = createAsyncThunk(
     'users/loginUser',
     async (formData, { rejectWithValue }) => {
         try {
-            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/users/login`, {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -29,10 +29,13 @@ const loginSlice = createSlice({
         user: null,
         loading: false,
         error: null,
+        token: localStorage.getItem("token") || null,
     },
     reducers: {
         logout(state){
             state.user = null;
+            state.token = null;
+            localStorage.removeItem("token");
         },
     },
     extraReducers: (builder) => {
@@ -44,6 +47,8 @@ const loginSlice = createSlice({
             .addCase(loginUser.fulfilled, (state, action) => {
                 state.loading = false;
                 state.user = action.payload.user;
+                state.token = action.payload.token;
+                localStorage.setItem("token", action.payload.token);
             })
             .addCase(loginUser.rejected, (state, action) => {
                 state.loading = false;

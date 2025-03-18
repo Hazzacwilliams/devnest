@@ -4,11 +4,13 @@ export const addFriend = createAsyncThunk(
     'friends/addFriend',
     async ({ userid2, status }, { rejectWithValue }) => {
         try {
+            const token = localStorage.getItem('token');
             console.log(`userid2 and status are: ${userid2}, ${status}`);
             const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/friends`, {
                 method: 'POST',
                 headers: {
                     "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`,
                 },
                 body: JSON.stringify({ userid2, status }),
                 credentials: 'include',
@@ -27,7 +29,8 @@ export const retrieveFriendRequests = createAsyncThunk(
     'friends/retrieveFriendRequests',
     async (_, { rejectWithValue }) => {
         try{
-            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/friends`, { credentials: 'include' });
+            const token = localStorage.getItem('token');
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/friends`, { headers: { "Authorization": `Bearer ${token}` } });
             if(!response.ok){
                 throw new Error("Failed to retrieve friend requests.");
             }
@@ -42,11 +45,12 @@ export const updateFriendRequest = createAsyncThunk(
     'friends/updateFriendRequest',
     async ({ friendshipid, statusUpdate }, { rejectWithValue }) => {
         try{
-            console.log(`friendship id: ${friendshipid}`)
+            const token = localStorage.getItem('token');
             const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/friends`, {
                 method: 'PATCH',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify({ friendshipid, statusUpdate}),
                 credentials: 'include',
@@ -65,6 +69,7 @@ export const getAllFriends = createAsyncThunk(
     'friends/getAllFriends',
     async (_, { rejectWithValue }) => {
         try {
+            const token = localStorage.getItem('token');
             const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/friends/getFriends`, { credentials: 'include' });
             if(!response.ok){
                 throw new Error("Failed to fetch friends list");

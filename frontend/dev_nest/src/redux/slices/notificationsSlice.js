@@ -4,7 +4,8 @@ export const getNotificationsByUserId = createAsyncThunk(
     "notifications/getNotificationsByUserId",
     async (_, { rejectWithValue }) => {
         try {
-            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/notifications`, { credentials: 'include' });
+            const token = localStorage.getItem('token');
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/notifications`, { headers: { "Authorization": `Bearer ${token}` } });
             if(!response.ok){
                 throw new Error("Failed to fetch notifications");
             }
@@ -19,10 +20,12 @@ export const updateNotificationStatus = createAsyncThunk(
     "notifications/updateNotificationStatus",
     async(notificationid, { rejectWithValue }) => {
         try {
+            const token = localStorage.getItem('token');
             const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/notifications`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`,
                 },
                 body: JSON.stringify({ notificationid }),
                 credentials: 'include',

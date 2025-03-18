@@ -1,6 +1,5 @@
 import hashedPassword from '../utils/hashedPassword.js';
 import * as userModel from '../models/userModels.js';
-import passport from '../config/authConfig.js';
 
 const getAllUsers = async (req, res) => {
     try {
@@ -68,35 +67,6 @@ const deleteUser = async (req, res) => {
     }
 }
 
-const loginUser = async (req, res, next) => {
-    passport.authenticate('local', (err, user, info) => {
-        if(err) {
-            return res.status(500).json({ error: "An error occured during login process" });
-        } 
-        if(!user) {
-            return res.status(401).json({ error: info.message });
-        }
-        req.login(user, (err) => {
-            if(err) {
-                console.error(err);
-                return res.status(500).json({ error: "Failed to login" });
-            }
-            req.session.userid = user.userid;
-            res.json({ message: "Login successful", user});
-        });
-    })(req, res, next);
-};
-
-const logoutUser = async (req, res) => {
-    req.logout(err => {
-        if(err) {
-            console.error(err);
-            return res.status(500).json({ message: "Unable to logout." });
-        }
-        res.json({ message: "Logout Successful."});
-    });
-};
-
 const uploadProfilePicture = async (req, res) => {
     const userid = req.session.userid;
     console.log(`This is userid inside uploadProfilePicture = ${userid}`);
@@ -116,7 +86,5 @@ export {
     getUserById,
     updateUser,
     deleteUser,
-    loginUser,
-    logoutUser,
     uploadProfilePicture
 };

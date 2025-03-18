@@ -2,14 +2,13 @@ import dotenv from 'dotenv';
 import express from 'express';
 import path from 'path';
 import cors from 'cors';
-import passport from './config/authConfig.js';
+import authRoute from './routes/authRoute.js';
 import userRoutes from './routes/userRoutes.js';
 import postRoutes from './routes/postRoutes.js';
 import likeRoutes from './routes/likeRoutes.js';
 import commentRoute from './routes/commentRoute.js';
 import friendRoute from './routes/friendRoute.js';
 import notificationRoute from './routes/notificationRoute.js';
-import sessionMiddleware from './config/sessionConfig.js';
 import bodyParser from "body-parser";
 
 
@@ -41,13 +40,10 @@ app.use((req, res, next) => {
     }
 });
 
-app.use(sessionMiddleware);
-app.use(passport.initialize());
-app.use(passport.session());
-
 
 
 //Routes
+app.use('/login', authRoute);
 app.use('/users', userRoutes);
 app.use('/posts', postRoutes);
 app.use('/likes', likeRoutes);

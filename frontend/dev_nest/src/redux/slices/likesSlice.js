@@ -5,9 +5,13 @@ export const addLike = createAsyncThunk(
   "likes/addLike",
   async ({ postid, userid }, { rejectWithValue }) => {
     try {
+      const token = localStorage.getItem('token');
       const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/likes`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`, 
+        },
         body: JSON.stringify({ postid, userid }),
         credentials: 'include',
       });
@@ -25,11 +29,14 @@ export const addLike = createAsyncThunk(
 export const removeLike = createAsyncThunk(
   'likes/removeLike',
   async ({ postid }, { rejectWithValue }) => {
-    console.log(`postid inside removeLike is ${postid}`);
     try {
+      const token = localStorage.getItem('token');
       const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/likes/${postid}`, {
         method: "DELETE",
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`,
+        },
         credentials: 'include',
       })
       if(!response.ok) {
@@ -46,8 +53,9 @@ export const removeLike = createAsyncThunk(
 export const getLikes = createAsyncThunk(
   "likes/getLikes",
   async (postid, { rejectWithValue }) => {
+    const token = localStorage.getItem('token');
     try {
-      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/likes?postid=${postid}`, { credentials: 'include' });
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/likes?postid=${postid}`, { headers: { "Authorization": `Bearer ${token}` } });
       if (!response.ok) {
         throw new Error("Failed to fetch likes for the post");
       }
@@ -63,7 +71,8 @@ export const fetchAllLikes = createAsyncThunk(
   "likes/fetchAllLikes",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/likes/all`, { credentials: 'include' });
+      const token = localStorage.getItem('token');
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/likes/all`, { headers: { "Authorization": `Bearer ${token}` } });
       if (!response.ok) {
         throw new Error("Failed to fetch all likes");
       }
