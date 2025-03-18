@@ -27,7 +27,7 @@ export const retrieveFriendRequests = createAsyncThunk(
     'friends/retrieveFriendRequests',
     async (_, { rejectWithValue }) => {
         try{
-            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/friends`);
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/friends`, { credentials: 'include' });
             if(!response.ok){
                 throw new Error("Failed to retrieve friend requests.");
             }
@@ -65,7 +65,7 @@ export const getAllFriends = createAsyncThunk(
     'friends/getAllFriends',
     async (_, { rejectWithValue }) => {
         try {
-            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/friends/getFriends`);
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/friends/getFriends`, { credentials: 'include' });
             if(!response.ok){
                 throw new Error("Failed to fetch friends list");
             }

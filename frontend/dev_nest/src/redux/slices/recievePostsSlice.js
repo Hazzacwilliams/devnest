@@ -9,7 +9,7 @@ export const recievePosts = createAsyncThunk(
             ? `${process.env.REACT_APP_BACKEND_URL}/posts?userid=${userid}`
             : `${process.env.REACT_APP_BACKEND_URL}/posts`;
             
-            const response = await fetch(url);
+            const response = await fetch(url, { credentials: 'include' });
             if (!response.ok) {
                 throw new Error(`Failed to fetch posts: ${response.statusText}`);
             }

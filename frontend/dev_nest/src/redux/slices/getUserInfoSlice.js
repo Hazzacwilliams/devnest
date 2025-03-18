@@ -4,7 +4,7 @@ export const getUserInfo = createAsyncThunk(
     'users/getUserInfo',
     async (userid, { rejectWithValue }) => {
         try {
-            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/users?userid=${userid}`);
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/users?userid=${userid}`, { credentials: 'include' });
             if(!response.ok) {
                 throw new Error(`Failed to reciever user info: ${response.statusText}`);
             }
@@ -41,7 +41,7 @@ export const getAllUserInfo = createAsyncThunk(
     'users/getAllUserInfo',
     async (_, { rejectWithValue }) => {
         try {
-            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/users`);
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/users`, { credentials: 'include' });
             if(!response.ok){
                 throw new Error(`Failed to get all users: ${response.statusText}`);
             }

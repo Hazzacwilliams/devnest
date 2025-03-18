@@ -26,7 +26,7 @@ export const getAllComments = createAsyncThunk(
     "comments/getAllComments",
     async(_, { rejectWithValue }) => {
         try {
-            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/comments`);
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/comments`, { credentials: 'include' });
             if(!response) {
                 throw new Error(`Failed to retrieve all comments.`);
             }

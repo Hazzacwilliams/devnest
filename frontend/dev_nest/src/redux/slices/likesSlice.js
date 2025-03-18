@@ -47,7 +47,7 @@ export const getLikes = createAsyncThunk(
   "likes/getLikes",
   async (postid, { rejectWithValue }) => {
     try {
-      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/likes?postid=${postid}`);
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/likes?postid=${postid}`, { credentials: 'include' });
       if (!response.ok) {
         throw new Error("Failed to fetch likes for the post");
       }
@@ -63,7 +63,7 @@ export const fetchAllLikes = createAsyncThunk(
   "likes/fetchAllLikes",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/likes/all`);
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/likes/all`, { credentials: 'include' });
       if (!response.ok) {
         throw new Error("Failed to fetch all likes");
       }

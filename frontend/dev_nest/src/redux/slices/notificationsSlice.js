@@ -4,7 +4,7 @@ export const getNotificationsByUserId = createAsyncThunk(
     "notifications/getNotificationsByUserId",
     async (_, { rejectWithValue }) => {
         try {
-            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/notifications`);
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/notifications`, { credentials: 'include' });
             if(!response.ok){
                 throw new Error("Failed to fetch notifications");
             }
