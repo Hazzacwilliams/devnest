@@ -9,6 +9,7 @@ export const addLike = createAsyncThunk(
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ postid, userid }),
+        credentials: 'include',
       });
       if (!response.ok) {
         throw new Error("Failed to add like");
@@ -29,6 +30,7 @@ export const removeLike = createAsyncThunk(
       const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/likes/${postid}`, {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
+        credentials: 'include',
       })
       if(!response.ok) {
         throw new Error("Failed to unlike");

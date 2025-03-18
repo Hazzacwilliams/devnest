@@ -10,6 +10,7 @@ export const addComment = createAsyncThunk(
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({ postid, commentData }),
+                credentials: 'include',
             })
             if (!response.ok) {
                 throw new Error("Failed to add comment");

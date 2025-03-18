@@ -25,6 +25,7 @@ export const updateUserInfo = createAsyncThunk(
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify(userData),
+                credentials: 'include',
             });
             if(!response.ok) {
                 throw new Error(`Failed to update user: ${response.statusText}`);

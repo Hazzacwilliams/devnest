@@ -8,6 +8,7 @@ export const createNewPost = createAsyncThunk(
             const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/posts`, {
                 method: "POST",
                 body: formData,
+                credentials: 'include',
             })
             console.log("API payload request", JSON.stringify(formData));
             if(!response.ok){
