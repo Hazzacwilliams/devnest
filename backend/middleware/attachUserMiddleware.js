@@ -1,8 +1,8 @@
 const attachUserMiddleware = (req, res, next) => {
-    if(!req.session || !req.session.userid){
+    if (!req.user) {
         return res.status(500).json({ error: "Unauthorized!" });
     }
-    req.userid = req.session.userid;
+    req.userid = req.user.userid; // or however you reference the id on your user object
     next();
 }
 
