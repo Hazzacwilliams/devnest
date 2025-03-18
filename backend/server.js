@@ -22,6 +22,11 @@ const port = process.env.PORT || 3000;
 const __dirname = path.resolve();
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
+app.use(cors({
+    origin: 'https://devnest-frontend.onrender.com',  
+    credentials: true 
+  }));
+
 //Middleware
 app.use(express.json({ limit: "50mb" })); 
 app.use(express.urlencoded({ limit: "50mb", extended: true }));
@@ -40,10 +45,7 @@ app.use(sessionMiddleware);
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(cors({
-    origin: 'https://devnest-frontend.onrender.com',  
-    credentials: true 
-  }));
+
 
 //Routes
 app.use('/users', userRoutes);
