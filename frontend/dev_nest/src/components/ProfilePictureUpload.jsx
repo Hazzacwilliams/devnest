@@ -13,8 +13,7 @@ function ProfilePictureUpload({ userid }) {
         formData.append('profilePicture', file);
 
         try {
-            const response = await fetch(`${import.meta.env.REACT_APP_BACKEND_URL}
-/users/upload-profile-picture`, {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/users/upload-profile-picture`, {
                 method: 'POST',
                 body: formData,
             });

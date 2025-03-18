@@ -6,8 +6,8 @@ export const recievePosts = createAsyncThunk(
     async (userid, { rejectWithValue }) => {
         try {
             const url = userid
-            ? `${import.meta.env.REACT_APP_BACKEND_URL}/posts?userid=${userid}`
-            : `${import.meta.env.REACT_APP_BACKEND_URL}/posts`;
+            ? `${process.env.REACT_APP_BACKEND_URL}/posts?userid=${userid}`
+            : `${process.env.REACT_APP_BACKEND_URL}/posts`;
             
             const response = await fetch(url);
             if (!response.ok) {

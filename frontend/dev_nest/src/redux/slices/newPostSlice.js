@@ -5,7 +5,7 @@ export const createNewPost = createAsyncThunk(
     async (formData, { rejectWithValue }) => {
         console.log("Form data recieved: ", formData);
         try {
-            const response = await fetch(`${import.meta.env.REACT_APP_BACKEND_URL}/posts`, {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/posts`, {
                 method: "POST",
                 body: formData,
             })

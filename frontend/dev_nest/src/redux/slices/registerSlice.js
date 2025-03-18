@@ -4,7 +4,7 @@ export const registerUser = createAsyncThunk(
     'users/registerUser',
     async (formData, { rejectWithValue }) => {
         try {
-            const response = await fetch(`${import.meta.env.REACT_APP_BACKEND_URL}/users`, {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/users`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

@@ -5,7 +5,7 @@ export const addFriend = createAsyncThunk(
     async ({ userid2, status }, { rejectWithValue }) => {
         try {
             console.log(`userid2 and status are: ${userid2}, ${status}`);
-            const response = await fetch(`${import.meta.env.REACT_APP_BACKEND_URL}/friends`, {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/friends`, {
                 method: 'POST',
                 headers: {
                     "Content-Type": "application/json",
@@ -26,7 +26,7 @@ export const retrieveFriendRequests = createAsyncThunk(
     'friends/retrieveFriendRequests',
     async (_, { rejectWithValue }) => {
         try{
-            const response = await fetch(`${import.meta.env.REACT_APP_BACKEND_URL}/friends`);
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/friends`);
             if(!response.ok){
                 throw new Error("Failed to retrieve friend requests.");
             }
@@ -42,7 +42,7 @@ export const updateFriendRequest = createAsyncThunk(
     async ({ friendshipid, statusUpdate }, { rejectWithValue }) => {
         try{
             console.log(`friendship id: ${friendshipid}`)
-            const response = await fetch(`${import.meta.env.REACT_APP_BACKEND_URL}/friends`, {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/friends`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json'
@@ -63,7 +63,7 @@ export const getAllFriends = createAsyncThunk(
     'friends/getAllFriends',
     async (_, { rejectWithValue }) => {
         try {
-            const response = await fetch(`${import.meta.env.REACT_APP_BACKEND_URL}/friends/getFriends`);
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/friends/getFriends`);
             if(!response.ok){
                 throw new Error("Failed to fetch friends list");
             }
