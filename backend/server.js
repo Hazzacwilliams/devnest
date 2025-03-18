@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 import express from 'express';
 import path from 'path';
+import cors from 'cors';
 import passport from './config/authConfig.js';
 import userRoutes from './routes/userRoutes.js';
 import postRoutes from './routes/postRoutes.js';
@@ -38,6 +39,11 @@ app.use((req, res, next) => {
 app.use(sessionMiddleware);
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use(cors({
+    origin: 'https://devnest-frontend.onrender.com',  
+    credentials: true 
+  }));
 
 //Routes
 app.use('/users', userRoutes);
