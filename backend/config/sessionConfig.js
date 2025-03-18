@@ -14,6 +14,7 @@ const sessionMiddleware = session({
   saveUninitialized: false,
   cookie: {
     secure: process.env.NODE_ENV === 'production', // use HTTPS in production
+    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
     maxAge: 1000 * 60 * 60 * 24, // 1 day, adjust if needed
   }
 });
