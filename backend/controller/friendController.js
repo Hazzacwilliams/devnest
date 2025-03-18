@@ -3,7 +3,7 @@ import * as notificationModel from '../models/notificationModel.js';
 
 const addFriend = async (req, res) => {
     const { userid2, status } = req.body; 
-    const userid1 = req.session.userid;
+    const userid1 = req.user.userid;
     try {
         const addFriend = await friendsModel.addFriend(userid1, userid2, status);
         if(!addFriend){
@@ -19,7 +19,7 @@ const addFriend = async (req, res) => {
 };
 
 const retrieveFriendRequests = async (req, res) => {
-    const userid = req.session.userid;
+    const userid = req.user.userid;
     try {
         const retrieveFriendRequests = await friendsModel.retrieveFriendRequests(userid);
         if(!retrieveFriendRequests) {
@@ -47,7 +47,7 @@ const updateFriendRequest = async (req, res) => {
 }
 
 const getAllFriends = async (req, res) => {
-    const userid = req.session.userid;
+    const userid = req.user.userid;
     try {
         const getAllFriends = await friendsModel.getAllFriends(userid);
         if(!getAllFriends) {

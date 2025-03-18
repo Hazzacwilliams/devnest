@@ -1,7 +1,7 @@
 import * as notificationModel from '../models/notificationModel.js';
 
 const getNotificationsByUserId = async (req, res) => {
-    const userid = req.session.userid;
+    const userid = req.user.userid;
     try {
         const getNotificationsByUserId = await notificationModel.getNotificationsByUserId(userid);
         return res.status(200).json(getNotificationsByUserId);

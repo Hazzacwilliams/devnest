@@ -18,7 +18,7 @@ const getLikesByPostId = async (req, res) => {
 
 const addLike = async (req, res) => {
     const { postid } = req.body;
-    const userid = req.session.userid;
+    const userid = req.user.userid;
     try{
         const addLike = await likeModel.addLike(userid, postid);
         const post = await postModel.getPostById(postid);
@@ -34,7 +34,7 @@ const addLike = async (req, res) => {
 
 const removeLike = async (req, res) => {
     const { postid } = req.params;
-    const userid = req.session.userid;
+    const userid = req.user.userid;
     try {
         const removeLike = await likeModel.removeLike(userid, postid);
         res.status(201).json(removeLike);
