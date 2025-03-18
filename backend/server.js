@@ -53,6 +53,13 @@ app.use('/comments', commentRoute);
 app.use('/friends', friendRoute);
 app.use('/notifications', notificationRoute);
 
+
+app.use((err, req, res, next) => {
+    console.error("Unhandled error:", err.stack || err);
+    res.status(500).json({ message: err.message || "Internal Server Error" });
+  });
+  
+
 app.listen(port, () => {
     console.log(`Server running on http://localhost:${port}`);
 });
