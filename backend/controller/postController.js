@@ -23,7 +23,7 @@ const getAllPostsByUserId = async (req, res) => {
 
 const createPost = async (req, res) => {
     const { posttitle, postdata } = req.body;
-    const userid = req.user.userid;
+    const userid = req.user.id;
     const mediaFiles = req.files ? req.files.map(file => `uploads/posts/${file.filename}`) : null;
     try {
         const newPost = await postModel.createPost(userid, posttitle, postdata, JSON.stringify(mediaFiles));

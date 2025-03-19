@@ -4,7 +4,7 @@ import * as notificationModel from '../models/notificationModel.js';
 
 const addComment = async (req, res) => {
     const { postid, commentData} = req.body;
-    const userid = req.user.userid;
+    const userid = req.user.id;
     try{
         const addComment = await commentModel.addComment(userid, postid, commentData);
         if(!addComment){
