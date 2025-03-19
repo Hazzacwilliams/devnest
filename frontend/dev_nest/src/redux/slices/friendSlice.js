@@ -70,6 +70,7 @@ export const getAllFriends = createAsyncThunk(
     async (_, { rejectWithValue }) => {
         try {
             const token = localStorage.getItem('token');
+            console.log(`Token in friends is: ${token}`);
             const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/friends/getFriends`, { headers: { "Authorization": `Bearer ${token}` } });
             if(!response.ok){
                 throw new Error("Failed to fetch friends list");
