@@ -19,7 +19,7 @@ const addFriend = async (req, res) => {
 };
 
 const retrieveFriendRequests = async (req, res) => {
-    const userid = req.user.userid;
+    const userid = req.user.id;
     try {
         const retrieveFriendRequests = await friendsModel.retrieveFriendRequests(userid);
         if(!retrieveFriendRequests) {
@@ -47,7 +47,7 @@ const updateFriendRequest = async (req, res) => {
 }
 
 const getAllFriends = async (req, res) => {
-    const userid = req.user.userid;
+    const userid = req.user.id;
     try {
         const getAllFriends = await friendsModel.getAllFriends(userid);
         if(!getAllFriends) {

@@ -68,7 +68,7 @@ const deleteUser = async (req, res) => {
 }
 
 const uploadProfilePicture = async (req, res) => {
-    const userid = req.user.userid;
+    const userid = req.user.id;
     console.log(`This is userid inside uploadProfilePicture = ${userid}`);
     const profilePictureUrl = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
     try {
