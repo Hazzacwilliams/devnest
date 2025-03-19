@@ -13,7 +13,6 @@ export const addFriend = createAsyncThunk(
                     "Authorization": `Bearer ${token}`,
                 },
                 body: JSON.stringify({ userid2, status }),
-                credentials: 'include',
             })
             if(!response.ok){
                 throw new Error("Failed to add friend");
@@ -53,7 +52,6 @@ export const updateFriendRequest = createAsyncThunk(
                     'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify({ friendshipid, statusUpdate}),
-                credentials: 'include',
             }) 
             if(!response.ok) {
                 throw new Error("Failed to update friendrequest!");
