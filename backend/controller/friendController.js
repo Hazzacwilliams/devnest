@@ -3,7 +3,7 @@ import * as notificationModel from '../models/notificationModel.js';
 
 const addFriend = async (req, res) => {
     const { userid2, status } = req.body; 
-    const userid1 = req.user.userid;
+    const userid1 = req.user.id;
     try {
         const addFriend = await friendsModel.addFriend(userid1, userid2, status);
         if(!addFriend){
