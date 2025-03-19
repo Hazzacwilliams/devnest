@@ -11,7 +11,6 @@ export const createNewPost = createAsyncThunk(
                     "Authorization": `Bearer ${token}`,
                 },
                 body: formData,
-                credentials: 'include',
             })
             console.log("API payload request", JSON.stringify(formData));
             if(!response.ok){

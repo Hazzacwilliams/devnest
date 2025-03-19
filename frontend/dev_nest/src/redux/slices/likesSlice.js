@@ -13,7 +13,6 @@ export const addLike = createAsyncThunk(
           "Authorization": `Bearer ${token}`, 
         },
         body: JSON.stringify({ postid, userid }),
-        credentials: 'include',
       });
       if (!response.ok) {
         throw new Error("Failed to add like");
@@ -37,7 +36,6 @@ export const removeLike = createAsyncThunk(
           "Content-Type": "application/json",
           "Authorization": `Bearer ${token}`,
         },
-        credentials: 'include',
       })
       if(!response.ok) {
         throw new Error("Failed to unlike");

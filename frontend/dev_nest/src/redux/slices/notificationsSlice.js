@@ -28,7 +28,6 @@ export const updateNotificationStatus = createAsyncThunk(
                     "Authorization": `Bearer ${token}`,
                 },
                 body: JSON.stringify({ notificationid }),
-                credentials: 'include',
             })
             if(!response.ok){
                 throw new Error("failed to update notification status");
