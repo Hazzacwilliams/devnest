@@ -62,7 +62,7 @@ function PostData({ dOrP, userid }){
                     filteredPosts.map((post) => (
                         <div key={post.postid} className="postItem">
                             <div id="postBannerContainer">
-                                <h2>{post.posttitle} - {post.username}</h2>
+                                <h2 id="postTitleUser">{post.posttitle} - {post.username}</h2>
                                 
                                 <p>{calculateTimeElapsed(post.date_created)}</p>
                             </div>

@@ -60,3 +60,9 @@
     max-height: 500px;
     max-width: auto;
 }
+
+@media (max-width: 768px){
+    #postTitleUser {
+        font-size: 1rem;
+    }
+}
