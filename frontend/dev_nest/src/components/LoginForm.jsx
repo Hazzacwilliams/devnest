@@ -47,7 +47,7 @@ const LoginForm = () => {
 
     return (
         <form id="loginForm" onSubmit={handleSubmit}>
-            <h2>Already Register? Login Below</h2>
+            <h2>Already Register? Login Here!</h2>
             <input type="email" name='email' onChange={handleChange} placeholder='EMAIL' value={formData.email}></input>
             <input type="password" name='password' onChange={handleChange} placeholder='PASSWORD' value={formData.password}></input>
             <button type='submit' disabled={loading}>{loading ? 'Logging in..' : 'Login'}</button>

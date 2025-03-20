@@ -109,3 +109,51 @@ button:hover {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2rem;
+    }
+
+    input {
+        min-width: 90%;
+        min-height: 3vh;
+        margin: 1vh;
+    }
+
+    #homePanelContainer {
+        flex-direction: column;
+    }
+
+    .homePanel {
+        width: 90% !important;
+        margin: 1vh;
+        /* Set a min-height so that there’s enough room for the title */
+        min-height: 20vh;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+    }
+
+    .homePanel form {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .homePanel:not(.activePanel) form > :not(h2) {
+        display: none;
+    }
+  
+    /* When active, expand the panel and reveal all fields */
+    .homePanel.activePanel {
+        min-height: 60% !important;
+    }
+  }
+
+    
+
