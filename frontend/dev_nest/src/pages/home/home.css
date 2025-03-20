@@ -111,13 +111,13 @@ button:hover {
 
 @media (max-width: 768px) {
     h1 {
-        font-size: 2rem;
+        font-size: 1.5rem;
     }
 
     input {
         min-width: 90%;
         min-height: 3vh;
-        margin: 1vh;
+        margin: 0.5vh;
     }
 
     #homePanelContainer {
@@ -127,8 +127,7 @@ button:hover {
     .homePanel {
         width: 90% !important;
         margin: 1vh;
-        /* Set a min-height so that there’s enough room for the title */
-        min-height: 20vh;
+        max-height: 10vh;
         overflow: hidden;
         display: flex;
         flex-direction: column;
@@ -149,7 +148,6 @@ button:hover {
         display: none;
     }
   
-    /* When active, expand the panel and reveal all fields */
     .homePanel.activePanel {
         min-height: 60% !important;
     }
