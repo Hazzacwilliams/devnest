@@ -51,8 +51,8 @@
 }
 
 #postMediaImg{
-    max-height: 200px;
-    max-width: 200px;
+    max-height: 500px;
+    max-width: auto;
     
 }
 
