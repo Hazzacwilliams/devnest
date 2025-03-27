@@ -1,6 +1,5 @@
 import dotenv from 'dotenv';
 import express from 'express';
-import path from 'path';
 import cors from 'cors';
 import authRoute from './routes/authRoute.js';
 import userRoutes from './routes/userRoutes.js';
@@ -17,14 +16,22 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 3000;
 
-//Serve static files
-const __dirname = path.resolve();
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+const allowedOrigins = [
+  'http://localhost:3000',
+  'https://devnest-frontend.onrender.com'
+];
 
 app.use(cors({
-    origin: 'https://devnest-frontend.onrender.com',  
-    credentials: true 
-  }));
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+    return callback(new Error('Not allowed by CORS'));
+  },
+  credentials: true
+}));
+
 
 //Middleware
 app.use(express.json({ limit: "50mb" })); 

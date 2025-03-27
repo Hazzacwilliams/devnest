@@ -14,15 +14,20 @@ function NavBar() {
 
     const dispatch = useDispatch();
 
-    const loggedInUser = useSelector((state) => state.login.user);
+    const user = useSelector((state) => state.login.user);
 
     useEffect(() => {
-        dispatch(getUserInfo(loggedInUser.userid));
-    }, [dispatch, loggedInUser.profilepic_url])
+        if(user?.userid){
+            dispatch(getUserInfo(user.userid));
+        }
+    }, [dispatch, user?.userid])
 
     const navigate = useNavigate();
 
-    const profilePic = loggedInUser.profilepic_url !== null ? loggedInUser.profilepic_url : profileIcon;
+    const profilePic = user?.profilepic_url ? `${user.profilepic_url}?t=${new Date().getTime()}` : profileIcon;
+
+    console.log("Profile pic in NavBar:", user?.profilepic_url);
+
 
     const handleProfileClick = (e) => {
         navigate('/profile');

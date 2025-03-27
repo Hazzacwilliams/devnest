@@ -5,7 +5,7 @@ export const getUserInfo = createAsyncThunk(
     async (userid, { rejectWithValue }) => {
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/users?userid=${userid}`, { headers: { "Authorization": `Bearer ${token}`} });
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/users?${userid}`, { headers: { "Authorization": `Bearer ${token}`} });
             if(!response.ok) {
                 throw new Error(`Failed to reciever user info: ${response.statusText}`);
             }

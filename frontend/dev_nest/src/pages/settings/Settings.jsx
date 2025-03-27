@@ -23,6 +23,8 @@ function Settings() {
         const dispatch = useDispatch();
 
         const { loading, error } = useSelector((state) => state.user);
+        const user = useSelector((state) => state.user.userInfo);
+        const userid = user?.userid;
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -66,7 +68,7 @@ function Settings() {
             </form>
             <div id="profilePictureSettings">
                 <h2>Update Profile Picture</h2>
-                <ProfilePictureUpload />
+                <ProfilePictureUpload userid={userid} />
             </div>
             <div>
                 <button onClick={handleLogOut}>Log Out</button>

@@ -36,6 +36,11 @@ const loginSlice = createSlice({
             state.token = null;
             localStorage.removeItem("token");
         },
+        updateProfilePicture: (state, action) => {
+            if(state.user) {
+                state.user.profilepic_url = action.payload;
+            }
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -56,5 +61,5 @@ const loginSlice = createSlice({
     },
 });
 
-export const { logout } = loginSlice.actions;
+export const { logout, updateProfilePicture } = loginSlice.actions;
 export default loginSlice.reducer;

@@ -2,7 +2,7 @@ import express from 'express';
 import * as postController from '../controller/postController.js';
 import jwtMiddleware from '../middleware/jwtMiddleware.js';
 import attachUserMiddleware from '../middleware/attachUserMiddleware.js';
-import { uploadPostMedia } from '../config/multerConfig.js';
+import { uploadPostMedia } from '../middleware/s3Upload.js';
 
 const router = express.Router();
 

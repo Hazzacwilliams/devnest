@@ -69,11 +69,10 @@ const deleteUser = async (req, res) => {
 
 const uploadProfilePicture = async (req, res) => {
     const userid = req.user.id;
-    console.log(`This is userid inside uploadProfilePicture = ${userid}`);
-    const profilePictureUrl = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
+    const profilePictureUrl = req.file.location;
     try {
         const updatedUser = await userModel.updateUserProfilePicture(userid, profilePictureUrl);
-        res.json(updatedUser);
+        res.json({ message: 'Profile picture uploaded!', profilepic_url: updatedUser.profilepic_url });
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: "Unable to upload profile picture"});
