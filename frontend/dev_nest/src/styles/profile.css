@@ -1,4 +1,4 @@
-#profileContainer{
+#profileContainer {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -8,44 +8,112 @@
     padding: 0%;
 }
 
-#profileHeader{
+#profileHeader {
     border-bottom: 2px solid black;
-    height: 20vh;
+    height: 200px;
     width: 95%;
     margin-bottom: 2vh;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-between;
     align-items: center;
 }
 
-#profileImg{
-    min-width: 100px;
-    min-height: 100px;
-    border-radius: 50%;
+#profileInfo {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
 }
 
-#profileImgContainer{
-    min-height: 100px;
-    min-width: 100px;
+#profileImg {
+    min-width: 125px;
+    min-height: 125px;
+    max-width: 125px;
+    max-height: 125px;
+    border-radius: 10px;
+    object-fit: cover;
 }
 
-#friendsList{
-   position: fixed; /* Keep it above all content */
-   top: 50%;
-   left: 50%;
-   transform: translate(-50%, -50%); /* Center it */
-   background: rgba(255, 255, 255, 0.95); /* Light background with slight transparency */
-   border-radius: 10px;
-   padding: 20px;
-   width: 500px;
-   max-width: 90%;
-   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Adds a soft shadow for depth */
-   z-index: 1000; /* Ensure it's above everything */
-   text-align: center; 
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   flex-direction: column;
+#profileImgContainer {
+    min-height: 125px;
+    min-width: 125px;
+    z-index: 2;
 }
 
+#friendsList {
+    position: fixed;
+    /* Keep it above all content */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* Center it */
+    background: rgba(255, 255, 255, 0.95);
+    /* Light background with slight transparency */
+    border-radius: 10px;
+    padding: 20px;
+    width: 500px;
+    max-width: 90%;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    /* Adds a soft shadow for depth */
+    z-index: 1000;
+    /* Ensure it's above everything */
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+@media (max-width: 768px) {
+    #profileHeader {
+        flex-direction: row-reverse;
+        height: 130px;
+    }
+
+    #profileInfo {
+        position: relative;
+        z-index: 2;
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+        /* For a side-by-side layout, you can remove the column direction 
+           if you want text and buttons horizontally aligned. */
+        align-items: flex-start;
+    }
+
+    #profileInfo h2 {
+        margin: 0;
+        font-size: 1.5rem;
+    }
+
+    #profileInfo h3 {
+        margin: 0.5rem 0 0;
+        font-size: 1.2rem;
+    }
+
+    #profileInfo span {
+        font-size: 0.9rem;
+        margin-top: 0.25rem;
+    }
+
+    #profileInfo button {
+        margin-top: 0.75rem;
+        border-radius: 5%;
+        background: none;
+        padding-left: 0%;
+    }
+
+    #profileImg,
+    #profileImgContainer {
+        min-width: 85px;
+        min-height: 85px;
+        max-width: 85px;
+        max-height: 85px;
+    }
+
+    #profileImgContainer {
+        margin-right: 10px;
+    }
+}

@@ -20,7 +20,7 @@ function Profile() {
     const allUsers = useSelector((state) => state.user.allUserInfo) || [];
     const allFriends = useSelector((state) => state.friend.allFriends) || [];
 
-    const user = userid ? 
+    const user = userid ?
         allUsers.find((u) => u.userid === parseInt(userid, 10))
         : loggedInUser;
 
@@ -43,53 +43,69 @@ function Profile() {
     }, [user, loggedInUser, dispatch]);
 
     const addFriendFunc = (userid2, status) => {
-        dispatch(addFriend({userid2, status}));
+        dispatch(addFriend({ userid2, status }));
     }
 
     const isFriendRequestPending = allFriends.some(
-        (friend) => 
-        (friend.userid1 === loggedInUser.userid && friend.userid2 === user.userid && friend.status === "p") ||
-        (friend.userid2 === loggedInUser.userid && friend.userid1 === user.userid && friend.status === "p")
+        (friend) =>
+            (friend.userid1 === loggedInUser.userid && friend.userid2 === user.userid && friend.status === "p") ||
+            (friend.userid2 === loggedInUser.userid && friend.userid1 === user.userid && friend.status === "p")
     );
-    
+
     const isAlreadyFriend = allFriends.some(
         (friend) =>
             (friend.userid1 === loggedInUser.userid && friend.userid2 === user.userid && friend.status === "a") ||
             (friend.userid2 === loggedInUser.userid && friend.userid1 === user.userid && friend.status === "a")
     );
 
-    if(!user) {
+    if (!user) {
         return <p>User not found</p>
     }
 
-    
+
 
     return (
-        <div id="profileContainer"> 
+        <div id="profileContainer">
             <NavBar id="profileNavBar" />
             <div id="profileHeader">
                 <div id="profileImgContainer">
-                    <img src={user.profilepic_url || profileImg} alt="profileImg" id="profileImg" />
+                    <img
+                        src={user.profilepic_url || profileImg}
+                        alt="profileImg"
+                        id="profileImg"
+                    />
                 </div>
-                
-                <h2>{user.name}</h2>
-                <h3>{user.username}</h3>
-                <span>{user.region}</span>
-                {profileType === 'foreignProfile' && !isFriendRequestPending && !isAlreadyFriend && (<button onClick={() => addFriendFunc(userid, "p")}>Add User</button>)}
-                {profileType === 'foreignProfile' && isFriendRequestPending && (<span>Friend request pending...</span>)}
-                {profileType === 'foreignProfile' && isAlreadyFriend && (<span>Already friends!</span>)}
-                {profileType === "userProfile" && (
-                    <button onClick={() => setIsClicked(!isClicked)}>Friends: {allFriends.filter(friend => friend.userid1 === user.userid || friend.userid2 === user.userid).length}</button>
-                )}
-                
+                <div id="profileInfo">
+                    <h2>{user.name}</h2>
+                    <h3>@{user.username}</h3>
+                    <span>{user.region}</span>
+
+                    {profileType === 'foreignProfile' && !isFriendRequestPending && !isAlreadyFriend && (
+                        <button onClick={() => addFriendFunc(userid, "p")}>Add User</button>
+                    )}
+                    {profileType === 'foreignProfile' && isFriendRequestPending && (
+                        <span>Friend request pending...</span>
+                    )}
+                    {profileType === 'foreignProfile' && isAlreadyFriend && (
+                        <span>Already friends!</span>
+                    )}
+                    {profileType === "userProfile" && (
+                        <button onClick={() => setIsClicked(!isClicked)}>
+                            Friends: {allFriends.filter(
+                                friend => friend.userid1 === user.userid || friend.userid2 === user.userid
+                            ).length}
+                        </button>
+                    )}
+                </div>
             </div>
             {isClicked &&
-                    <FriendsList allFriends={allFriends} profileOwner={user} />
-                }
+                <FriendsList allFriends={allFriends} profileOwner={user} />
+            }
             <div id="yourPostsContainer">
                 <PostData dOrP={dOrP} userid={user.userid} />
             </div>
         </div>
+
     )
 };
 

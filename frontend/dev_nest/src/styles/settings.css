@@ -16,6 +16,10 @@ form {
     width: 60%;
 }
 
+form input {
+    margin-bottom: 2vh;
+}
+
 input {
     width: 35% ; 
 }
@@ -37,3 +41,19 @@ input {
 #profilePictureUpload * {
     margin-right: 2vw;
 }
+
+#logout {
+    margin-top: 3vh;
+    padding: 1rem;
+}
+
+#logout button {
+    background: red;
+}
+  
+@media (max-width: 768px) {
+    h2 {
+        font-size: 1rem;
+    }
+}
+  

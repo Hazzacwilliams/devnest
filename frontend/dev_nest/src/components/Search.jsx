@@ -45,7 +45,7 @@ function Search() {
             <input
                 type="text"
                 id="searchBar"
-                placeholder="SEARCH"
+                placeholder="FIND FRIENDS"
                 value={searchTerm}
                 onChange={handleInput}
             />

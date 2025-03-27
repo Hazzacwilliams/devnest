@@ -1,12 +1,72 @@
-#newPostPopUp{
+.newPostOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.4); 
     display: flex;
-    flex-direction: column;
-    height: 30vh;
-    width: 90vw;
     justify-content: center;
     align-items: center;
-}
+    z-index: 1000; 
+  }
+  
+  #newPostPopUp {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+    z-index: 1001;
+    max-width: 500px;
+    width: 90%;
+  }
+  
 
 #newPostPopUp * {
     margin-bottom: 2vh;
 }
+
+#newPostPopUp input {
+    width: 90%;
+    border: 2px solid black;
+}
+
+#popUpTitle {
+    max-width: 60% !important;
+}
+
+.custom-file-upload {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background: linear-gradient(90deg, #ff8a00, #e52e71);
+    color: white;
+    border-radius: 20px;
+    cursor: pointer;
+    text-align: center;
+    margin: 1rem auto;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+.custom-file-upload:hover{
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+}
+  
+  #popUpMedia {
+    display: none; /* hide native input */
+  }
+  
+
+@media (max-width: 768px) {
+    #newPostPopUp {
+        width: 80vw;
+        padding: 1rem;
+      }
+}
+
+  
+

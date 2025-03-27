@@ -31,7 +31,13 @@ const newPostSlice = createSlice({
         loading: false,
         error: null,
     },
-    reducers: {},
+    reducers: {
+        resetNewPostState: (state) => {
+            state.post = null;
+            state.error = null;
+            state.loading = null;
+        }
+    },
     extraReducers: (builder) => {
         builder
             .addCase(createNewPost.pending, (state) => {
@@ -49,4 +55,5 @@ const newPostSlice = createSlice({
     },
 });
 
+export const { resetNewPostState } = newPostSlice.actions
 export default newPostSlice.reducer;

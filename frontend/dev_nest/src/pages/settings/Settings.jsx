@@ -70,7 +70,7 @@ function Settings() {
                 <h2>Update Profile Picture</h2>
                 <ProfilePictureUpload userid={userid} />
             </div>
-            <div>
+            <div id="logout">
                 <button onClick={handleLogOut}>Log Out</button>
             </div>
         </div>

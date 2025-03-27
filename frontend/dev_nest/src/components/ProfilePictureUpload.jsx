@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { updateProfilePicture } from '../redux/slices/loginSlice.js';
+import "../styles/profilePictureUpload.css";
 
 
 function ProfilePictureUpload({ userid }) {
@@ -39,7 +40,10 @@ function ProfilePictureUpload({ userid }) {
 
     return (
         <div id="profilePictureUpload">
-            <input type="file" onChange={handleFileChange} />
+            <label htmlFor='profilepicinput' className='custom-file-upload'>
+                📎 CHOOSE PROFILE PICTURE 📎
+            </label>
+            <input type="file" id='profilepicinput' onChange={handleFileChange}  style={{ display: "none" }}/>
             <button onClick={handleUpload}>Upload</button>
             {message && <p>{message}</p>}
         </div>
