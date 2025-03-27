@@ -64,7 +64,7 @@ function PostData({ dOrP, userid }) {
             {error && <p style={{ color: 'red' }}>Error: {error}</p>}
             {!loading && !error && posts.length > 0 && (
                 <div id="postsList">
-                    {filteredPosts.length === 0 ? <h3>No Posts for user yet!</h3> :
+                    {filteredPosts.length === 0 ? <h3>Add Friends or Create a Post To View Content</h3> :
                         filteredPosts.map((post) => (
                             <div key={post.postid} className="postItem">
                                 <div id="postBannerContainer">
