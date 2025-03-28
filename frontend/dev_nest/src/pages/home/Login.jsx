@@ -8,7 +8,7 @@ function Login(){
     const [activePanel, setActivePanel] = useState('left');
     return (
         <div id="homeContainer">
-            <div>
+            <div id='homeTitle'>
                 <h1>WELCOME TO DEVNEST!</h1>
             </div>
             <div id="homePanelContainer">

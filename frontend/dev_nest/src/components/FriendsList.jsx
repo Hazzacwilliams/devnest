@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
+import "../styles/friendsList.css";
 
-function FriendsList ({ allFriends, profileOwner }) {
+function FriendsList({ allFriends, profileOwner, onClose }) {
 
+    const containerRef = useRef(null);
     const allUserInfo = useSelector((state) => state.user.allUserInfo);
     const [friendWithDetails, setFriendWithDetails] = useState([]);
 
@@ -23,8 +25,8 @@ function FriendsList ({ allFriends, profileOwner }) {
         });
 
         detailedFriends.sort((a, b) => {
-            const nameA = (a.friendDetails?.username || "").toLowerCase();
-            const nameB = (b.friendDetails?.username || "").toLowerCase();
+            const nameA = (a.friendDetails?.name || "").toLowerCase();
+            const nameB = (b.friendDetails?.name || "").toLowerCase();
             if (nameA < nameB) return -1;
             if (nameA > nameB) return 1;
             return 0;
@@ -32,14 +34,23 @@ function FriendsList ({ allFriends, profileOwner }) {
 
         setFriendWithDetails(detailedFriends);
     }, [allFriends, profileOwner, allUserInfo]);
-    
+
+    useEffect(() => {
+        function handleClickOutside(event) {
+            if (containerRef.current && !containerRef.current.contains(event.target)) {
+                onClose();
+            }
+        }
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => { document.removeEventListener("mousedown", handleClickOutside); };
+    }, [onClose]);
 
     return (
-        <div id="friendsList">
-            <h2>{profileOwner.username}'s Friends!</h2>
+        <div id="friendsList" ref={containerRef}>
+            <h2>{profileOwner.name.toUpperCase()} FRIENDS LIST</h2>
             {friendWithDetails.map((friend) => (
-                <div key={friend.friendshipid}>
-                    <span>{friend.friendDetails?.username.toUpperCase() || "Unknown user"}</span>
+                <div key={friend.friendshipid} id="friendName">
+                    <span>{friend.friendDetails?.name.toUpperCase() || "Unknown user"}</span>
                 </div>
             ))}
         </div>

@@ -99,7 +99,7 @@ function Profile() {
                 </div>
             </div>
             {isClicked &&
-                <FriendsList allFriends={allFriends} profileOwner={user} />
+                <FriendsList allFriends={allFriends} profileOwner={user} onClose={() => setIsClicked(false)}/>
             }
             <div id="yourPostsContainer">
                 <PostData dOrP={dOrP} userid={user.userid} />

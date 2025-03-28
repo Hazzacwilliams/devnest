@@ -4,7 +4,8 @@
     flex-direction: column;
     background: linear-gradient(90deg, #ff8a00, #e52e71);
     height: fill;
-    min-height: 100%;
+    min-height: -webkit-fill-available;
+    min-height: 100vh;
 }
 #dashNavBar{
     position: sticky;

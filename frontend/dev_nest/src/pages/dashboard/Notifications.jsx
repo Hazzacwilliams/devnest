@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllFriends, updateFriendRequest } from "../../redux/slices/friendSlice";
 import '../../styles/notifications.css';
@@ -7,7 +7,9 @@ import { getNotificationsByUserId, updateNotificationStatus } from "../../redux/
 
 const Notifications = () => {
     const [isClicked, setIsClicked] = useState(false);
+    const [friendRequestClick, setFriendRequestClick] = useState(true);
     const [showAll, setShowAll] = useState(false);
+    const containerRef = useRef(null);
     const dispatch = useDispatch();
 
     const { allNotifications } = useSelector((state) => state.notification);
@@ -55,6 +57,7 @@ const Notifications = () => {
             });
 
         dispatch(updateNotificationStatus(notification.notificationid));
+        setFriendRequestClick(false);
     };
 
 
@@ -68,8 +71,20 @@ const Notifications = () => {
 
     const displayedReadNotifications = showAll ? readNotifications : readNotifications.slice(0, 5);
 
+    useEffect(() => {
+        function handleClickOutside(event) {
+            if (containerRef.current && !containerRef.current.contains(event.target)) {
+                setIsClicked(false);
+            }
+        }
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, []);
+
     return (
-        <div>
+        <div ref={containerRef}>
             <button id="notificationsContainer" onClick={handleClick}>
                 <img id="notificationIcon" src={notificationIcon} />
                 <span id="notificationNumber">{unreadNotifications.length}</span>
@@ -88,8 +103,8 @@ const Notifications = () => {
                                     {notification.type === "friendRequest" && notification.status === "unread" && (
                                         <span>{notification.username} wants to add you!
                                             <span>
-                                                <button onClick={() => handleFriendRequestResponse(notification, "a")}>ACCEPT</button>
-                                                <button onClick={() => handleFriendRequestResponse(notification, "d")}>DECLINE</button>
+                                                {friendRequestClick && <button onClick={() => handleFriendRequestResponse(notification, "a")}>ACCEPT</button>}
+                                                {friendRequestClick && <button onClick={() => handleFriendRequestResponse(notification, "d")}>DECLINE</button>}
                                             </span>
                                         </span>
                                     )}

@@ -1,0 +1,8 @@
+#friendsList {
+    max-height: 400px;
+    overflow-y: scroll;
+}
+
+#friendName {
+    margin-bottom: 5px;
+}

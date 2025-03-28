@@ -7,6 +7,7 @@ import Dashboard from './pages/dashboard/Dashboard';
 import Profile from './pages/profile/Profile';
 import Settings from './pages/settings/Settings';
 import AuthRoute from './components/AuthRoute';
+import LoadingScreen from './components/LoadingScreen';
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
         <Route path='/profile' element={<PrivateRoute><Profile /></PrivateRoute>} />
         <Route path='profile/:userid' element={<PrivateRoute><Profile /></PrivateRoute>} />
         <Route path='/settings' element={<PrivateRoute><Settings /></PrivateRoute>} />
+        <Route path='/loadingscreen' element={<LoadingScreen />} />
       </Routes>
     </Router>
   );
