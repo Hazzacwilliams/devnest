@@ -44,11 +44,11 @@ function NavBar() {
     return (
         <div id="dashHeader">
             <div id="navbar">
-            <button className="navbarButton"><img src={`${profilePic}?t=${new Date().getTime()}`} id="profileIcon" onClick={handleProfileClick} /></button>
-            <button className="navbarButton"><img src={homeIcon} id="homeIcon" onClick={handleHomeClick} /></button>
-            <h1 id="appTitle">DEVNEST</h1>
+            <button className="navbarButton" id="profileButton"><img src={`${profilePic}?t=${new Date().getTime()}`} id="profileIcon" onClick={handleProfileClick} /></button>
+            <button className="navbarButton" id="homeButton"><img src={homeIcon} id="homeIcon" onClick={handleHomeClick} /></button>
+            <h1 id="appTitle">DEV_NEST</h1>
             <Notifications />
-            <button className="navbarButton"><img src={settingsIcon} id="settingsIcon" onClick={handleSettingClick} /></button>
+            <button className="navbarButton" id="settingsButton"><img src={settingsIcon} id="settingsIcon" onClick={handleSettingClick} /></button>
             </div>
             <div>
                 

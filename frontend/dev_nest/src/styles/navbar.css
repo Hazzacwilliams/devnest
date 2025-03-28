@@ -44,6 +44,17 @@
     object-fit: cover;
 }
 
+#profileButton {
+    background: #e52e71;
+}
+
+#homeButton {
+    background: #e52e71;
+}
+
+#settingsButton {
+    background: #ff8a00;
+}
 
 #profileIcon{
     width: 60px;

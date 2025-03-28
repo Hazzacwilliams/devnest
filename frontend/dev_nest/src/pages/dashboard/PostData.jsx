@@ -7,7 +7,7 @@ import { fetchAllLikes } from "../../redux/slices/likesSlice";
 import RetrieveComments from "../../components/RetrieveComments.jsx";
 import Comments from "../../components/Comments.jsx";
 import { getAllFriends } from "../../redux/slices/friendSlice.js";
-import { PacmanLoader, ClipLoader } from "react-spinners";
+import { PacmanLoader, HashLoader } from "react-spinners";
 
 function PostData({ dOrP, userid }) {
 
@@ -95,7 +95,7 @@ function PostData({ dOrP, userid }) {
 
                                         return (
                                             <div style={{ position: "relative", textAlign: "center" }}>
-                                                {!mediaLoaded[post.postid] && <ClipLoader color="#4f46e5" size={35} />}
+                                                {!mediaLoaded[post.postid] && <HashLoader color="#4f46e5" size={35} />}
 
                                                 {isImage && (
                                                     <img

@@ -21,8 +21,8 @@ export const recievePosts = createAsyncThunk(
             const data = await response.json();
 
             const elapsed = Date.now() - startTime;
-            if(elapsed < 5000) {
-                await new Promise(resolve => setTimeout(resolve, 5000 - elapsed));
+            if(elapsed < 2000) {
+                await new Promise(resolve => setTimeout(resolve, 2000 - elapsed));
             }
             return await data;
         } catch (err) {
