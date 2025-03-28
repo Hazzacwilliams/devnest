@@ -44,7 +44,8 @@ function ProfilePictureUpload({ userid }) {
                 📎 CHOOSE PROFILE PICTURE 📎
             </label>
             <input type="file" id='profilepicinput' onChange={handleFileChange}  style={{ display: "none" }}/>
-            <button onClick={handleUpload}>Upload</button>
+            {file && <button onClick={handleUpload}>Upload</button>}
+            
             {message && <p>{message}</p>}
         </div>
     );

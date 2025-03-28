@@ -4,7 +4,7 @@
     align-items: center;
     background: linear-gradient(90deg, #ff8a00, #e52e71);
     height: fill;
-    min-height: 100vh;
+    min-height: 100%;
     padding: 0%;
 }
 

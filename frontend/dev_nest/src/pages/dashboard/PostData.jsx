@@ -7,7 +7,7 @@ import { fetchAllLikes } from "../../redux/slices/likesSlice";
 import RetrieveComments from "../../components/RetrieveComments.jsx";
 import Comments from "../../components/Comments.jsx";
 import { getAllFriends } from "../../redux/slices/friendSlice.js";
-import { ClipLoader } from "react-spinners";
+import { PacmanLoader, ClipLoader } from "react-spinners";
 
 function PostData({ dOrP, userid }) {
 
@@ -37,6 +37,11 @@ function PostData({ dOrP, userid }) {
         ? posts.filter(post => friendsList.includes(post.userid))
         : posts.filter(post => post.userid === userid);
 
+    const sortedPosts = [...filteredPosts].sort(
+        (a, b) => new Date(b.date_created) - new Date(a.date_created)
+    );
+
+
     const toggleComments = (postid) => {
         setIsVisible((prev) => ({
             ...prev,
@@ -60,12 +65,19 @@ function PostData({ dOrP, userid }) {
 
     return (
         <div id="postDataContainer">
-            {loading && <h1>Loading posts...</h1>}
+            {loading && <div style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                height: '80vh'
+            }}>
+                <PacmanLoader color="#4f46e5" size={35} />
+            </div>}
             {error && <p style={{ color: 'red' }}>Error: {error}</p>}
             {!loading && !error && posts.length > 0 && (
                 <div id="postsList">
-                    {filteredPosts.length === 0 ? <h3>Add Friends or Create a Post To View Content</h3> :
-                        filteredPosts.map((post) => (
+                    {sortedPosts.length === 0 ? <h3>Add Friends or Create a Post To View Content</h3> :
+                        sortedPosts.map((post) => (
                             <div key={post.postid} className="postItem">
                                 <div id="postBannerContainer">
                                     <h2 id="postTitleUser">{post.posttitle} - {post.username}</h2>

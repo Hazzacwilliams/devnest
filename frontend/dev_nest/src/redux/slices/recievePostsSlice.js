@@ -10,11 +10,21 @@ export const recievePosts = createAsyncThunk(
             ? `${process.env.REACT_APP_BACKEND_URL}/posts?userid=${userid}`
             : `${process.env.REACT_APP_BACKEND_URL}/posts`;
             
-            const response = await fetch(url, { headers: { "Authorization": `Bearer ${token}` } });
+            const startTime = Date.now();
+            const response = await fetch(url, { 
+                headers: { "Authorization": `Bearer ${token}` },
+                cache: 'no-store' 
+            });
             if (!response.ok) {
                 throw new Error(`Failed to fetch posts: ${response.statusText}`);
             }
-            return await response.json();
+            const data = await response.json();
+
+            const elapsed = Date.now() - startTime;
+            if(elapsed < 5000) {
+                await new Promise(resolve => setTimeout(resolve, 5000 - elapsed));
+            }
+            return await data;
         } catch (err) {
             return rejectWithValue(err.message);
         }

@@ -22,6 +22,14 @@ function FriendsList ({ allFriends, profileOwner }) {
             };
         });
 
+        detailedFriends.sort((a, b) => {
+            const nameA = (a.friendDetails?.username || "").toLowerCase();
+            const nameB = (b.friendDetails?.username || "").toLowerCase();
+            if (nameA < nameB) return -1;
+            if (nameA > nameB) return 1;
+            return 0;
+        });
+
         setFriendWithDetails(detailedFriends);
     }, [allFriends, profileOwner, allUserInfo]);
     
@@ -31,7 +39,7 @@ function FriendsList ({ allFriends, profileOwner }) {
             <h2>{profileOwner.username}'s Friends!</h2>
             {friendWithDetails.map((friend) => (
                 <div key={friend.friendshipid}>
-                    <span>{friend.friendDetails?.username || "Unknown user"}</span>
+                    <span>{friend.friendDetails?.username.toUpperCase() || "Unknown user"}</span>
                 </div>
             ))}
         </div>

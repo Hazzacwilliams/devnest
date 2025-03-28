@@ -53,6 +53,8 @@
 #postMediaImg{
     max-height: 500px;
     max-width: auto;
+    display: block;
+    margin: 0 auto;
     
 }
 
@@ -64,5 +66,10 @@
 @media (max-width: 768px){
     #postTitleUser {
         font-size: 1rem;
+    }
+
+    #postMediaImg{
+        max-width: 70%;
+        max-height: auto;
     }
 }
