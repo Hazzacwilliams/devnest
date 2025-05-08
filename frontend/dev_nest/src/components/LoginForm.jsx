@@ -1,3 +1,4 @@
+//Imports
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from '../redux/slices/loginSlice';
@@ -6,18 +7,16 @@ import '../styles/loginForm.css';
 
 const LoginForm = () => {
 
-    //Creating useState for form fields
+    //Initialzing Component
     const[formData, setFormData] = useState({
         email: '',
         password: ''
     });
-
-    //Set up dispatch for Redux Store
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { loading, error } = useSelector((state) => state.login);
 
-    //Saves current input value to useState
+    //Updates per user input
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData((prev) => ({
@@ -26,7 +25,7 @@ const LoginForm = () => {
         }));
     };
 
-    //Changes default behaviour of form submit
+    //Prevents default behaviour, checks if user has authenticated successfully and redirects to dashboard.
     const handleSubmit = async (e) => {
         e.preventDefault();
         try{

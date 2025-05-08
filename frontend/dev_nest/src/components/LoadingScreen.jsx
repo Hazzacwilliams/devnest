@@ -1,8 +1,10 @@
+//Imports
 import React from "react";
 import Lottie from 'react-lottie';
 import digitalPortal from '../assets/loadingAnimation/digitalPortal.json';
 import "../styles/loadingScreen.css";
 
+//Default behaviour for animation
 const defaultOptions = {
     loop: true,
     autoplay: true,

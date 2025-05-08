@@ -6,7 +6,7 @@ export const getNotificationsByUserId = createAsyncThunk(
         try {
             const token = localStorage.getItem('token');
             const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/notifications`, { headers: { "Authorization": `Bearer ${token}` } });
-            if(!response.ok){
+            if (!response.ok) {
                 throw new Error("Failed to fetch notifications");
             }
             return await response.json();
@@ -18,7 +18,7 @@ export const getNotificationsByUserId = createAsyncThunk(
 
 export const updateNotificationStatus = createAsyncThunk(
     "notifications/updateNotificationStatus",
-    async(notificationid, { rejectWithValue }) => {
+    async (notificationid, { rejectWithValue }) => {
         try {
             const token = localStorage.getItem('token');
             const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/notifications`, {
@@ -29,7 +29,7 @@ export const updateNotificationStatus = createAsyncThunk(
                 },
                 body: JSON.stringify({ notificationid }),
             })
-            if(!response.ok){
+            if (!response.ok) {
                 throw new Error("failed to update notification status");
             }
             return await response.json();
@@ -47,34 +47,42 @@ const notificationSlice = createSlice({
         loading: false,
         error: null,
     },
-    reducers: {},
+    reducers: {
+        resetNotificationsState: (state) => {
+            state.notification = null;
+            state.allNotifications = [];
+            state.loading = false;
+            state.error = null;
+        }
+    },
     extraReducers: (builder) => {
         builder
-        .addCase(getNotificationsByUserId.pending, (state) => {
-            state.loading = true;
-            state.error = null;
-        })
-        .addCase(getNotificationsByUserId.fulfilled, (state, action) => {
-            state.loading = false;
-            state.allNotifications = action.payload;
-        })
-        .addCase(getNotificationsByUserId.rejected, (state, action) => {
-            state.loading = false;
-            state.error = action.payload;
-        })
-        .addCase(updateNotificationStatus.pending, (state) => {
-            state.loading = true;
-            state.error = null;
-        })
-        .addCase(updateNotificationStatus.fulfilled, (state, action) => {
-            state.loading = false;
-            state.notification = action.payload;
-        })
-        .addCase(updateNotificationStatus.rejected, (state, action) => {
-            state.loading = false;
-            state.error = action.payload;
-        })
+            .addCase(getNotificationsByUserId.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(getNotificationsByUserId.fulfilled, (state, action) => {
+                state.loading = false;
+                state.allNotifications = action.payload;
+            })
+            .addCase(getNotificationsByUserId.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
+            })
+            .addCase(updateNotificationStatus.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(updateNotificationStatus.fulfilled, (state, action) => {
+                state.loading = false;
+                state.notification = action.payload;
+            })
+            .addCase(updateNotificationStatus.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
+            })
     }
 });
 
 export default notificationSlice.reducer;
+export const { resetNotificationsState } = notificationSlice.actions;

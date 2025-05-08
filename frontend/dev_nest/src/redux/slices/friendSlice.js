@@ -5,7 +5,6 @@ export const addFriend = createAsyncThunk(
     async ({ userid2, status }, { rejectWithValue }) => {
         try {
             const token = localStorage.getItem('token');
-            console.log(`userid2 and status are: ${userid2}, ${status}`);
             const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/friends`, {
                 method: 'POST',
                 headers: {
@@ -14,7 +13,7 @@ export const addFriend = createAsyncThunk(
                 },
                 body: JSON.stringify({ userid2, status }),
             })
-            if(!response.ok){
+            if (!response.ok) {
                 throw new Error("Failed to add friend");
             }
             return await response.json();
@@ -27,10 +26,10 @@ export const addFriend = createAsyncThunk(
 export const retrieveFriendRequests = createAsyncThunk(
     'friends/retrieveFriendRequests',
     async (_, { rejectWithValue }) => {
-        try{
+        try {
             const token = localStorage.getItem('token');
             const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/friends`, { headers: { "Authorization": `Bearer ${token}` } });
-            if(!response.ok){
+            if (!response.ok) {
                 throw new Error("Failed to retrieve friend requests.");
             }
             return await response.json();
@@ -43,7 +42,7 @@ export const retrieveFriendRequests = createAsyncThunk(
 export const updateFriendRequest = createAsyncThunk(
     'friends/updateFriendRequest',
     async ({ friendshipid, statusUpdate }, { rejectWithValue }) => {
-        try{
+        try {
             const token = localStorage.getItem('token');
             const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/friends`, {
                 method: 'PATCH',
@@ -51,15 +50,15 @@ export const updateFriendRequest = createAsyncThunk(
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`,
                 },
-                body: JSON.stringify({ friendshipid, statusUpdate}),
-            }) 
-            if(!response.ok) {
+                body: JSON.stringify({ friendshipid, statusUpdate }),
+            })
+            if (!response.ok) {
                 throw new Error("Failed to update friendrequest!");
             }
             return await response.json();
         } catch (err) {
             return rejectWithValue(err.message);
-        }  
+        }
     }
 );
 
@@ -68,9 +67,8 @@ export const getAllFriends = createAsyncThunk(
     async (_, { rejectWithValue }) => {
         try {
             const token = localStorage.getItem('token');
-            console.log(`Token in friends is: ${token}`);
             const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/friends/getFriends`, { headers: { "Authorization": `Bearer ${token}` } });
-            if(!response.ok){
+            if (!response.ok) {
                 throw new Error("Failed to fetch friends list");
             }
             return await response.json();
@@ -83,38 +81,75 @@ export const getAllFriends = createAsyncThunk(
 const friendSlice = createSlice({
     name: "friends",
     initialState: {
-        friend: null,
+        newFriend: null,
         friendRequests: [],
-        requestUpdate: [],
+        friendRequestStatus: [],
         allFriends: [],
         loading: false,
         error: null,
     },
-    reducers: {},
+    reducers: {
+        resetFriendState: (state) => {
+            state.newFriend = null;
+            state.friendRequests = [];
+            state.friendRequestStatus = [];
+            state.allFriends = [];
+            state.loading = false;
+            state.error = null;
+        },
+    },
     extraReducers: (builder) => {
         builder
-        .addCase(addFriend.pending, (state) => {
-            state.loading = true;
-            state.error = null;
-        })
-        .addCase(addFriend.fulfilled, (state, action) => {
-            state.loading = false;
-            state.friend = action.payload;
-        })
-        .addCase(addFriend.rejected, (state, action) => {
-            state.loading = false;
-            state.error = action.payload;
-        })
-        .addCase(retrieveFriendRequests.fulfilled, (state, action) => {
-            state.friendRequests = action.payload;
-        })
-        .addCase(updateFriendRequest.fulfilled, (state, action) => {
-            state.requestUpdate = action.payload;
-        })
-        .addCase(getAllFriends.fulfilled, (state, action) => {
-            state.allFriends = action.payload;
-        })
+            .addCase(addFriend.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(addFriend.fulfilled, (state, action) => {
+                state.loading = false;
+                state.newFriend = action.payload;
+            })
+            .addCase(addFriend.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
+            })
+            .addCase(retrieveFriendRequests.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(retrieveFriendRequests.fulfilled, (state, action) => {
+                state.loading = false;
+                state.friendRequests = action.payload;
+            })
+            .addCase(retrieveFriendRequests.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
+            })
+            .addCase(updateFriendRequest.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(updateFriendRequest.fulfilled, (state, action) => {
+                state.loading = false;
+                state.friendRequestStatus = action.payload;
+            })
+            .addCase(updateFriendRequest.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
+            })
+            .addCase(getAllFriends.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(getAllFriends.fulfilled, (state, action) => {
+                state.loading = false;
+                state.allFriends = action.payload;
+            })
+            .addCase(getAllFriends.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
+            })
     }
 });
 
 export default friendSlice.reducer;
+export const { resetFriendState } = friendSlice.actions;

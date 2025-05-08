@@ -1,3 +1,4 @@
+//Imports
 import React, { useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from "react-router-dom";
@@ -6,7 +7,7 @@ import { loginUser } from "../redux/slices/loginSlice";
 
 const RegisterForm = () => {
 
-    //Creating useState for form fields
+    //Initializing Component
     const [formData, setFormData] = useState({
         username: '',
         email: '',
@@ -15,10 +16,7 @@ const RegisterForm = () => {
         region: '',
         password: ''
     });
-
     const navigate = useNavigate();
-
-    //Set up dispatch for Redux Store
     const dispatch = useDispatch();
     const { loading, error } = useSelector((state) => state.register);
 

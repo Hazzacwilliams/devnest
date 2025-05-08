@@ -1,3 +1,4 @@
+//Imports
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import NavBar from "../../components/NavBar";
@@ -12,6 +13,7 @@ import { addFriend, getAllFriends } from "../../redux/slices/friendSlice";
 
 function Profile() {
 
+    //Initializing Component
     const { userid } = useParams();
     const [profileType, setProfileType] = useState('');
     const [isClicked, setIsClicked] = useState(false);
@@ -24,8 +26,9 @@ function Profile() {
         allUsers.find((u) => u.userid === parseInt(userid, 10))
         : loggedInUser;
 
-    const dOrP = "profile";
+    const dOrP = "profile"; //Sets which posts are visible
 
+    //Determine if personal profile or viewing another user
     const determineProfileType = () => {
         if (user) {
             if (user === loggedInUser) {
@@ -36,6 +39,7 @@ function Profile() {
         }
     };
 
+    //Reads/Updates State 
     useEffect(() => {
         determineProfileType();
         dispatch(getAllFriends());

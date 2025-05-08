@@ -1,24 +1,25 @@
+//Imports
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import '../../styles/newPostPop.css';
 import { createNewPost, resetNewPostState } from "../../redux/slices/newPostSlice";
-import { recievePosts } from "../../redux/slices/recievePostsSlice";
+import { receivePosts } from "../../redux/slices/recievePostsSlice";
 import { ClipLoader } from "react-spinners";
 
 function NewPostPop({ closePopUp }) {
 
+    //Initializing Component
     const [formData, setFormData] = useState({
         posttitle: '',
         postdata: ''
     });
     const [media, setMedia] = useState();
-
     const dispatch = useDispatch();
     const { post, loading, error } = useSelector((state) => state.newPost);
 
+    //Clears post state before and after use.
     useEffect(() => {
         dispatch(resetNewPostState());
-
         return () => {
             dispatch(resetNewPostState());
         };
@@ -46,7 +47,7 @@ function NewPostPop({ closePopUp }) {
         }
         try {
             await dispatch(createNewPost(formDataToSend)).unwrap();
-            await dispatch(recievePosts());
+            await dispatch(receivePosts());
             closePopUp();
         } catch (err) {
             console.error("Failed to create posts:", err);

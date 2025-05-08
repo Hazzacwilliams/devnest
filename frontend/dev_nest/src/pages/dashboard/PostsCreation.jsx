@@ -1,3 +1,4 @@
+//Imports
 import React, { useState } from "react";
 import '../../styles/postsCreation.css';
 import NewPostPop from "./NewPostPop.jsx";

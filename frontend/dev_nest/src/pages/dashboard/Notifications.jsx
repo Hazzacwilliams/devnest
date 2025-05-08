@@ -40,6 +40,7 @@ const Notifications = () => {
     };
 
 
+    //Allows a user to accept or deny a friend request
     const handleFriendRequestResponse = (notification, statusUpdate) => {
         const friendship = allFriends.find(
             (friend) =>
@@ -73,6 +74,7 @@ const Notifications = () => {
 
     const displayedReadNotifications = showAll ? readNotifications : readNotifications.slice(0, 5);
 
+    //Allows user to close popup by clicking outside of popup box
     useEffect(() => {
         function handleClickOutside(event) {
             if (containerRef.current && !containerRef.current.contains(event.target)) {

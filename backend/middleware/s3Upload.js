@@ -12,7 +12,6 @@ AWS.config.update({
 
 const s3 = new AWS.S3();
 
-// Reusable upload config with dynamic folder
 const createS3Uploader = (folder) => {
   return multer({
     storage: multerS3({
@@ -24,10 +23,9 @@ const createS3Uploader = (folder) => {
         cb(null, fileName);
       },
     }),
-    limits: { fileSize: 10 * 1024 * 1024 }, // Adjust if needed
+    limits: { fileSize: 10 * 1024 * 1024 },
   });
 };
 
-// Export separate uploaders
 export const uploadProfilePic = createS3Uploader('profilepics');
 export const uploadPostMedia = createS3Uploader('postmedia');

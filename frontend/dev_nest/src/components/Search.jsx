@@ -1,3 +1,4 @@
+//Imports
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllUserInfo } from "../redux/slices/getUserInfoSlice";
@@ -5,20 +6,21 @@ import "../styles/search.css";
 import { useNavigate } from "react-router-dom";
 
 function Search() {
+
+    //Initializing Component
     const [searchTerm, setSearchTerm] = useState("");
     const [filteredUsers, setFilteredUsers] = useState([]);
-
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { allUserInfo, loading, error } = useSelector((state) => state.user);
 
+    // Fetch all user info when the component mounts
     useEffect(() => {
-        // Fetch all user info when the component mounts
         dispatch(getAllUserInfo());
     }, [dispatch]);
 
+    // Filter users dynamically as the search term changes
     useEffect(() => {
-        // Filter users dynamically as the search term changes
         if (searchTerm.trim() === "") {
             setFilteredUsers([]);
         } else {
@@ -40,7 +42,7 @@ function Search() {
     }
 
     return (
-        <div id="searchContainer"> 
+        <div id="searchContainer">
             <input
                 type="text"
                 id="searchBar"

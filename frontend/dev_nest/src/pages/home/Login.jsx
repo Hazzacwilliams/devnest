@@ -1,3 +1,4 @@
+//Imports
 import './home.css';
 import React, { useState } from 'react';
 import RegisterForm from '../../components/RegisterForm';
@@ -5,7 +6,7 @@ import LoginForm from '../../components/LoginForm';
 
 function Login(){
 
-    const [activePanel, setActivePanel] = useState('left');
+    const [activePanel, setActivePanel] = useState('left'); //Flips active panel
     return (
         <div id="homeContainer">
             <div id='homeTitle'>

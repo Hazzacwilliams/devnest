@@ -1,3 +1,4 @@
+//Imports
 import React from "react";
 import '../../styles/dashboard.css';
 import NavBar from "../../components/NavBar";
@@ -6,7 +7,7 @@ import PostData from './PostData.jsx';
 
 function Dashboard() {
 
-    const dOrP = "dashboard";
+    const dOrP = "dashboard"; //Determines if profile or general dashboard display for postdata
 
     return (
         <div id="dashboard">

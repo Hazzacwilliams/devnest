@@ -8,11 +8,11 @@ const loginUser = async (req, res) => {
     try {
         const user = await userModel.getUserByEmail(email);
         if(!user){
-            return res.status(401).json({ error: 'Invalid Credentials!' });
+            return res.status(401).json({ error: 'Invalid Email!' });
         }
         const isMatch = await bcrypt.compare(password, user.password);
         if(!isMatch){
-            return res.status(401).json({ error: 'Invalid Credentials!' });
+            return res.status(401).json({ error: 'Invalid Password!' });
         }
         const token = jwt.sign(
             { id: user.userid, username: user.username },
@@ -24,7 +24,7 @@ const loginUser = async (req, res) => {
         res.json({ message: "Login Successful!", token, user: safeUser });
     } catch (err) {
         console.error(err);
-        res.status(500).json({ error: "Unable to login user" });
+        res.status(500).json({ error: `Unable to login user ${err.message}` });
     }
 
 }

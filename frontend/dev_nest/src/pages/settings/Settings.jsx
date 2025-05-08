@@ -1,3 +1,4 @@
+//Imports
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -9,8 +10,8 @@ import { logout } from '../../redux/slices/loginSlice';
 
 function Settings() {
 
+    //Initializing Component
     const navigate = useNavigate();
-
     const [formData, setFormData] = useState({ 
             username: '',
             email: '',
@@ -19,9 +20,7 @@ function Settings() {
             region: '',
             password: ''
         });
-
         const dispatch = useDispatch();
-
         const { loading, error } = useSelector((state) => state.user);
         const user = useSelector((state) => state.user.userInfo);
         const userid = user?.userid;
@@ -49,7 +48,7 @@ function Settings() {
 
     const handleLogOut = () => {
         dispatch(logout());
-        navigate("/login");
+        navigate("/");
     }
 
     return (

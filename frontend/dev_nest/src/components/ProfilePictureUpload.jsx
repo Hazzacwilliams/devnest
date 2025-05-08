@@ -1,10 +1,13 @@
+//Imports
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { updateProfilePicture } from '../redux/slices/loginSlice.js';
 import "../styles/profilePictureUpload.css";
 
 
-function ProfilePictureUpload({ userid }) {
+function ProfilePictureUpload() {
+
+    //Initializing Component
     const [file, setFile] = useState(null);
     const [message, setMessage] = useState('');
     const dispatch = useDispatch();
@@ -13,6 +16,7 @@ function ProfilePictureUpload({ userid }) {
         setFile(e.target.files[0]);
     };
 
+    //Handles picture upload, API request done in component as doesnt need state management and is likely a one of request.
     const handleUpload = async () => {
         const formData = new FormData();
         formData.append('profilePicture', file);

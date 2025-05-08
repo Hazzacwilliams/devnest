@@ -1,3 +1,4 @@
+//Imports
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -5,11 +6,13 @@ import "../styles/friendsList.css";
 
 function FriendsList({ allFriends, profileOwner, onClose }) {
 
+    //Initializing Component
     const containerRef = useRef(null);
     const allUserInfo = useSelector((state) => state.user.allUserInfo);
     const [friendWithDetails, setFriendWithDetails] = useState([]);
     const navigate = useNavigate();
 
+    //Checking if user owns profile, then filters friends based on accepted status and sorts them alphabetically
     useEffect(() => {
         if (!profileOwner) return;
 
@@ -37,6 +40,7 @@ function FriendsList({ allFriends, profileOwner, onClose }) {
         setFriendWithDetails(detailedFriends);
     }, [allFriends, profileOwner, allUserInfo]);
 
+    //Allows the user to click outside of friendslist box to close it, rather than reclicking the friendslist button
     useEffect(() => {
         function handleClickOutside(event) {
             if (containerRef.current && !containerRef.current.contains(event.target)) {
@@ -47,6 +51,7 @@ function FriendsList({ allFriends, profileOwner, onClose }) {
         return () => { document.removeEventListener("mousedown", handleClickOutside); };
     }, [onClose]);
 
+    //Navigates user to a profile if a name is clicked
     const handleClick = (userid) => {
         navigate(`/profile/${userid}`);
     }

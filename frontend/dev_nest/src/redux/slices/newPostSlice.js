@@ -12,7 +12,6 @@ export const createNewPost = createAsyncThunk(
                 },
                 body: formData,
             })
-            console.log("API payload request", JSON.stringify(formData));
             if(!response.ok){
                 throw new Error(`Failed to create post: ${response.statusText}`)
             }

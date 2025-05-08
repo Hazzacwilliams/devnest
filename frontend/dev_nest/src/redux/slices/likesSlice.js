@@ -8,9 +8,9 @@ export const addLike = createAsyncThunk(
       const token = localStorage.getItem('token');
       const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/likes`, {
         method: "POST",
-        headers: { 
+        headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`, 
+          "Authorization": `Bearer ${token}`,
         },
         body: JSON.stringify({ postid, userid }),
       });
@@ -32,12 +32,12 @@ export const removeLike = createAsyncThunk(
       const token = localStorage.getItem('token');
       const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/likes/${postid}`, {
         method: "DELETE",
-        headers: { 
+        headers: {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${token}`,
         },
       })
-      if(!response.ok) {
+      if (!response.ok) {
         throw new Error("Failed to unlike");
       }
       return await response.json();
@@ -53,7 +53,7 @@ export const getLikes = createAsyncThunk(
   async (postid, { rejectWithValue }) => {
     const token = localStorage.getItem('token');
     try {
-      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/likes?postid=${postid}`, { headers: { "Authorization": `Bearer ${token}` } });
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/likes/${postid}`, { headers: { "Authorization": `Bearer ${token}` } });
       if (!response.ok) {
         throw new Error("Failed to fetch likes for the post");
       }
@@ -78,7 +78,7 @@ export const fetchAllLikes = createAsyncThunk(
 
       // Store an array of user IDs for each post instead of just a count
       return data.reduce((acc, like) => {
-        const { postid, userid } = like; 
+        const { postid, userid } = like;
 
         if (!acc[postid]) {
           acc[postid] = []; // Initialize array for users who liked the post
@@ -102,7 +102,13 @@ const likesSlice = createSlice({
     loading: false,
     error: null,
   },
-  reducers: {},
+  reducers: {
+    resetLikesState: (state) => {
+      state.like = null;
+      state.likesCount = null;
+      state.error = null;
+    }
+  },
   extraReducers: (builder) => {
     builder
       // Add Like
@@ -119,9 +125,17 @@ const likesSlice = createSlice({
         state.error = action.payload;
       })
       // Remove Like
+      .addCase(removeLike.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
       .addCase(removeLike.fulfilled, (state, action) => {
         state.loading = false;
         state.like = action.payload;
+      })
+      .addCase(removeLike.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
       })
       // Get Likes for a Specific Post
       .addCase(getLikes.pending, (state) => {
@@ -130,7 +144,7 @@ const likesSlice = createSlice({
       })
       .addCase(getLikes.fulfilled, (state, action) => {
         state.loading = false;
-        state.likesCount = action.payload.likes; 
+        state.likesCount = action.payload.likes;
       })
       .addCase(getLikes.rejected, (state, action) => {
         state.loading = false;
@@ -143,7 +157,7 @@ const likesSlice = createSlice({
       })
       .addCase(fetchAllLikes.fulfilled, (state, action) => {
         state.loading = false;
-        state.allLikes = action.payload; 
+        state.allLikes = action.payload;
       })
       .addCase(fetchAllLikes.rejected, (state, action) => {
         state.loading = false;
@@ -153,3 +167,4 @@ const likesSlice = createSlice({
 });
 
 export default likesSlice.reducer;
+export const { resetLikesState } = likesSlice.actions;

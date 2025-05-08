@@ -25,7 +25,7 @@ export const loginUser = createAsyncThunk(
 const loginSlice = createSlice({
     name: 'login',
     initialState: {
-        user: null,
+        user: JSON.parse(localStorage.getItem("user")) || null,
         loading: false,
         error: null,
         token: localStorage.getItem("token") || null,
@@ -35,6 +35,7 @@ const loginSlice = createSlice({
             state.user = null;
             state.token = null;
             localStorage.removeItem("token");
+            localStorage.removeItem("user");
         },
         updateProfilePicture: (state, action) => {
             if(state.user) {
@@ -53,6 +54,8 @@ const loginSlice = createSlice({
                 state.user = action.payload.user;
                 state.token = action.payload.token;
                 localStorage.setItem("token", action.payload.token);
+                localStorage.setItem("user", JSON.stringify(action.payload.user));
+
             })
             .addCase(loginUser.rejected, (state, action) => {
                 state.loading = false;

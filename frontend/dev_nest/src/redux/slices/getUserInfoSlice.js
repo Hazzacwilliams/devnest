@@ -5,8 +5,8 @@ export const getUserInfo = createAsyncThunk(
     async (userid, { rejectWithValue }) => {
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/users?${userid}`, { headers: { "Authorization": `Bearer ${token}`} });
-            if(!response.ok) {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/users/${userid}`, { headers: { "Authorization": `Bearer ${token}` } });
+            if (!response.ok) {
                 throw new Error(`Failed to reciever user info: ${response.statusText}`);
             }
             return await response.json();
@@ -21,7 +21,7 @@ export const updateUserInfo = createAsyncThunk(
     async ({ userid, userData }, { rejectWithValue }) => {
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/users`, {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/users/${userid}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
@@ -29,7 +29,7 @@ export const updateUserInfo = createAsyncThunk(
                 },
                 body: JSON.stringify(userData),
             });
-            if(!response.ok) {
+            if (!response.ok) {
                 throw new Error(`Failed to update user: ${response.statusText}`);
             }
             return await response.json();
@@ -45,7 +45,7 @@ export const getAllUserInfo = createAsyncThunk(
         try {
             const token = localStorage.getItem('token');
             const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/users`, { headers: { "Authorization": `Bearer ${token}` } });
-            if(!response.ok){
+            if (!response.ok) {
                 throw new Error(`Failed to get all users: ${response.statusText}`);
             }
             return await response.json();
@@ -63,9 +63,16 @@ const getUserInfoSlice = createSlice({
         loading: false,
         error: null,
     },
-    reducers: {},
+    reducers: {
+        resetUserInfoState: (state) => {
+            state.userInfo = null;
+            state.allUserInfo = [];
+            state.loading = false;
+            state.error = null;
+        }
+    },
     extraReducers: (builder) => {
-        builder 
+        builder
             .addCase(getUserInfo.pending, (state) => {
                 state.loading = true;
                 state.error = null;
@@ -106,3 +113,4 @@ const getUserInfoSlice = createSlice({
 });
 
 export default getUserInfoSlice.reducer;
+export const { resetUserInfoState } = getUserInfoSlice.actions;

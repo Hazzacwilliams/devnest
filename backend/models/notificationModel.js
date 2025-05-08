@@ -6,6 +6,7 @@ export const createNotification = async (userid, senderid, type, postid = null) 
         return response.rows[0];
     } catch (err) {
         console.error(`Failed to create notification: ${err.message}`);
+        throw err;
     }
 };
 
@@ -15,6 +16,7 @@ export const getNotificationsByUserId = async (userid) => {
         return response.rows;
     } catch (err) {
         console.error(`Failed to fetch notifications for userid: ${userid}: ${err.message}`);
+        throw err;
     }
 }
 
@@ -24,5 +26,6 @@ export const updateNotificationStatus = async (notificationid) => {
         return response.rows[0];
     } catch (err) {
         console.error(`Unable to update notification to read: ${err.message}`);
+        throw err;
     }
 }

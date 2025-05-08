@@ -5,7 +5,7 @@ import jwtMiddleware from '../middleware/jwtMiddleware.js';
 
 const router = express.Router();
 
-//Protected routes
+//Protected Route
 router.get('/', likeController.getLikesByPostId);
 router.post('/', jwtMiddleware, attachUserMiddleware, likeController.addLike);
 router.delete('/:postid', jwtMiddleware, attachUserMiddleware, likeController.removeLike);

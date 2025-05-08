@@ -3,11 +3,13 @@ import LocalStrategy from 'passport-local';
 import bcrypt from 'bcryptjs';
 import * as userModel from '../models/userModels.js';
 
+//Passport config file
+
 passport.use(new LocalStrategy(
     { usernameField: 'email' },
     async (email, password, done) => {
         try {
-            const user = await userModel.getUserByEmail(email);
+            const user = await userModel.getUserByEmail(email); //User email address to verify user
             if(!user) {
                 return done(null, false, { message: 'Invalid email' });
             }
@@ -27,7 +29,7 @@ passport.serializeUser((user, done) => {
         console.error('Failed to serialize user: Missing userID', user);
         return done(new Error('Missing userID'));
     }
-    done(null, user.userid); // Ensure `user.userID` is valid
+    done(null, user.userid);
 });
 
 passport.deserializeUser(async (userid, done) => {

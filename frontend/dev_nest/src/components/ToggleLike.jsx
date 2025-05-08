@@ -1,19 +1,19 @@
-import React, { useEffect } from "react";
+//Imports
+import React from "react";
 import likeIcon from '../assets/likesAndComments/like.png';
 import { useDispatch, useSelector } from "react-redux";
 import { addLike, fetchAllLikes, removeLike } from "../redux/slices/likesSlice";
 import '../styles/addLike.css';
 
 function ToggleLike({ postid }) {
+
+    //Initializing Component
     const dispatch = useDispatch();
     const allLikes = useSelector((state) => state.likes.allLikes);
     const userid = useSelector((state) => state.login.user.userid)
-    
-    
     const isLiked = Array.isArray(allLikes[postid]) && allLikes[postid].find((like) => like.userid === userid) ? true : false;
 
-
-
+    //Adds or removes a users like
     const handleClick = async () => {
         try {
             if(isLiked){

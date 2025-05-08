@@ -5,11 +5,11 @@ import { uploadProfilePic } from '../middleware/s3Upload.js';
 
 const router = express.Router();
 
-//Public Routes
+//Public Route
 router.post('/', userController.createUser);
 
 
-//Protected Routes
+//Protected Route
 router.get('/', jwtMiddleware, userController.getAllUsers);
 router.get('/:userID', jwtMiddleware, userController.getUserById);
 router.put('/:userID', jwtMiddleware, userController.updateUser);

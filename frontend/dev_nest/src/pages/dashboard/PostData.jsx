@@ -1,7 +1,8 @@
+//Imports
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { recievePosts } from "../../redux/slices/recievePostsSlice";
+import { receivePosts } from "../../redux/slices/recievePostsSlice";
 import '../../styles/postData.css';
 import LikesAndComments from "../../components/LikesAndComments";
 import { fetchAllLikes } from "../../redux/slices/likesSlice";
@@ -12,6 +13,7 @@ import { PacmanLoader, HashLoader } from "react-spinners";
 
 function PostData({ dOrP, userid }) {
 
+    //Initializing Component
     const dispatch = useDispatch();
     const { posts, loading, error } = useSelector((state) => state.posts);
     const allFriends = useSelector((state) => state.friend.allFriends) || [];
@@ -19,31 +21,35 @@ function PostData({ dOrP, userid }) {
     const [mediaLoaded, setMediaLoaded] = useState({});
     const navigate = useNavigate();
 
-
+    //Recieves post related data from state
     useEffect(() => {
         dispatch(fetchAllLikes());
-        dispatch(recievePosts());
+        dispatch(receivePosts());
         dispatch(getAllFriends());
     }, [dispatch, userid, dOrP]);
 
+    //Media function for spinner if long load time
     const handleMediaLoad = (postid) => {
         setMediaLoaded((prev) => ({ ...prev, [postid]: true }));
     };
 
+    //Saves user list of friends
     const friendsList = allFriends
         .filter(friend => friend.status === "a")
         .flatMap(friend => [friend.userid1, friend.userid2])
         .filter(id => id !== userid);
 
+    //Filters all posts based on friendslist
     const filteredPosts = dOrP === "dashboard"
         ? posts.filter(post => friendsList.includes(post.userid))
         : posts.filter(post => post.userid === userid);
 
+    //Sorts posts by date
     const sortedPosts = [...filteredPosts].sort(
         (a, b) => new Date(b.date_created) - new Date(a.date_created)
     );
 
-
+    //Comment toggle
     const toggleComments = (postid) => {
         setIsVisible((prev) => ({
             ...prev,
@@ -51,6 +57,7 @@ function PostData({ dOrP, userid }) {
         }));
     };
 
+    //Calculates time since post was created
     const calculateTimeElapsed = (dateCreated) => {
         const now = new Date();
         const created = new Date(dateCreated);
