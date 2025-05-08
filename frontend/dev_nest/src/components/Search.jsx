@@ -36,7 +36,6 @@ function Search() {
     };
 
     const handleUserClick = (userid) => {
-        console.log(userid);
         navigate(`/profile/${userid}`);
     }
 

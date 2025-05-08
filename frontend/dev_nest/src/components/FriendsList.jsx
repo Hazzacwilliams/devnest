@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import "../styles/friendsList.css";
 
@@ -7,6 +8,7 @@ function FriendsList({ allFriends, profileOwner, onClose }) {
     const containerRef = useRef(null);
     const allUserInfo = useSelector((state) => state.user.allUserInfo);
     const [friendWithDetails, setFriendWithDetails] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (!profileOwner) return;
@@ -45,12 +47,16 @@ function FriendsList({ allFriends, profileOwner, onClose }) {
         return () => { document.removeEventListener("mousedown", handleClickOutside); };
     }, [onClose]);
 
+    const handleClick = (userid) => {
+        navigate(`/profile/${userid}`);
+    }
+
     return (
         <div id="friendsList" ref={containerRef}>
             <h2>{profileOwner.name.toUpperCase()} FRIENDS LIST</h2>
             {friendWithDetails.map((friend) => (
                 <div key={friend.friendshipid} id="friendName">
-                    <span>{friend.friendDetails?.name.toUpperCase() || "Unknown user"}</span>
+                    <span onClick={() => handleClick(friend.friendDetails.userid)}>{friend.friendDetails?.name.toUpperCase() || "Unknown user"}</span>
                 </div>
             ))}
         </div>

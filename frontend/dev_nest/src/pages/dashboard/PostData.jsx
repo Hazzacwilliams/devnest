@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { clearPosts, recievePosts } from "../../redux/slices/recievePostsSlice";
+import { useNavigate } from "react-router-dom";
+import { recievePosts } from "../../redux/slices/recievePostsSlice";
 import '../../styles/postData.css';
 import LikesAndComments from "../../components/LikesAndComments";
 import { fetchAllLikes } from "../../redux/slices/likesSlice";
@@ -16,6 +17,7 @@ function PostData({ dOrP, userid }) {
     const allFriends = useSelector((state) => state.friend.allFriends) || [];
     const [isVisible, setIsVisible] = useState({});
     const [mediaLoaded, setMediaLoaded] = useState({});
+    const navigate = useNavigate();
 
 
     useEffect(() => {
@@ -63,6 +65,10 @@ function PostData({ dOrP, userid }) {
         return `${minutes}m ago`;
     };
 
+    const handleNameClick = (userid) => {
+        navigate(`/profile/${userid}`);
+    }
+
     return (
         <div id="postDataContainer">
             {loading && <div style={{
@@ -80,7 +86,7 @@ function PostData({ dOrP, userid }) {
                         sortedPosts.map((post) => (
                             <div key={post.postid} className="postItem">
                                 <div id="postBannerContainer">
-                                    <h2 id="postTitleUser">{post.posttitle} - {post.username}</h2>
+                                    <h2 id="postTitleUser" onClick={() => handleNameClick(post.userid)}>{post.posttitle} - {post.username}</h2>
 
                                     <p>{calculateTimeElapsed(post.date_created)}</p>
                                 </div>

@@ -125,18 +125,19 @@ button:hover {
 @media (max-width: 768px) {
 
     h1 {
-        font-size: 1.5rem;
+        margin-top: 7vh;
+        font-size: 1.75rem !important;
     }
 
     input {
         min-width: 90%;
-        min-height: 3vh;
+        min-height: 2vh;
         margin: 0.5vh;
     }
 
     #homePanelContainer {
         flex-direction: column;
-        height: 95%;
+        min-height: 95%;
     }
 
     .homePanel {

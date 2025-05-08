@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { getAllFriends, updateFriendRequest } from "../../redux/slices/friendSlice";
 import '../../styles/notifications.css';
 import notificationIcon from '../../assets/navbar/notification.png';
@@ -11,6 +12,7 @@ const Notifications = () => {
     const [showAll, setShowAll] = useState(false);
     const containerRef = useRef(null);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const { allNotifications } = useSelector((state) => state.notification);
     const { allFriends } = useSelector((state) => state.friend);
@@ -83,10 +85,14 @@ const Notifications = () => {
         };
     }, []);
 
+    const handleNameClick = (userid) => {
+        navigate(`/profile/${userid}`);
+    };
+
     return (
         <div ref={containerRef}>
             <button id="notificationsContainer" onClick={handleClick}>
-                <img id="notificationIcon" src={notificationIcon} />
+                <img alt="notificationIcon" id="notificationIcon" src={notificationIcon} />
                 <span id="notificationNumber">{unreadNotifications.length}</span>
             </button>
 
@@ -101,7 +107,7 @@ const Notifications = () => {
                             unreadNotifications.map(notification => (
                                 <div key={notification.notificationid} className="notification unread">
                                     {notification.type === "friendRequest" && notification.status === "unread" && (
-                                        <span>{notification.username} wants to add you!
+                                        <span><p className="nameClick" onClick={() => handleNameClick(notification.userid)}>{notification.username}</p> wants to add you!
                                             <span>
                                                 {friendRequestClick && <button onClick={() => handleFriendRequestResponse(notification, "a")}>ACCEPT</button>}
                                                 {friendRequestClick && <button onClick={() => handleFriendRequestResponse(notification, "d")}>DECLINE</button>}
@@ -109,10 +115,10 @@ const Notifications = () => {
                                         </span>
                                     )}
                                     {notification.type === "like" && (
-                                        <span>{notification.username} liked your post</span>
+                                        <span><p className="nameClick" onClick={() => handleNameClick(notification.userid)}>{notification.username}</p> liked your post</span>
                                     )}
                                     {notification.type === "comment" && (
-                                        <span>{notification.username} commented on your post</span>
+                                        <span><p className="nameClick" onClick={() => handleNameClick(notification.userid)}>{notification.username}</p> commented on your post</span>
                                     )}
                                 </div>
                             ))
@@ -129,14 +135,14 @@ const Notifications = () => {
                                 displayedReadNotifications.map(notification => (
                                     <div key={notification.notificationid} className="notification read">
                                         {notification.type === "friendRequest" && (
-                                            <span>{notification.username} sent you a friend request!</span>
+                                            <span><p className="nameClick" onClick={() => handleNameClick(notification.userid)}>{notification.username}</p> sent you a friend request!</span>
                                         )}
 
                                         {notification.type === "like" && (
-                                            <span>{notification.username} liked your post</span>
+                                            <span><p className="nameClick" onClick={() => handleNameClick(notification.userid)}>{notification.username}</p> liked your post</span>
                                         )}
                                         {notification.type === "comment" && (
-                                            <span>{notification.username} commented on your post</span>
+                                            <span><p className="nameClick" onClick={() => handleNameClick(notification.userid)}>{notification.username}</p> commented on your post</span>
                                         )}
                                     </div>
                                 ))

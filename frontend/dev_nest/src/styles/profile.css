@@ -3,8 +3,8 @@
     flex-direction: column;
     align-items: center;
     background: linear-gradient(90deg, #ff8a00, #e52e71);
-    height: fill;
-    min-height: 100%;
+    height: stretch;
+    min-height: 100vh;
     padding: 0%;
 }
 
