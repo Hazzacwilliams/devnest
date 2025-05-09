@@ -37,7 +37,6 @@ function PostData({ dOrP, userid }) {
     const friendsList = allFriends
         .filter(friend => friend.status === "a")
         .flatMap(friend => [friend.userid1, friend.userid2])
-        .filter(id => id !== userid);
 
     //Filters all posts based on friendslist
     const filteredPosts = dOrP === "dashboard"
@@ -90,7 +89,7 @@ function PostData({ dOrP, userid }) {
             {!loading && !error && (
                 <div id="postsList">
                     {sortedPosts.length === 0 ? <h3>{dOrP === "dashboard"
-                        ? "Add friends or create a post to view content"
+                        ? "Add friends to view content"
                         : "No posts yet. Create your first post!"}
                     </h3> :
                         sortedPosts.map((post) => (
