@@ -87,9 +87,12 @@ function PostData({ dOrP, userid }) {
                 <PacmanLoader color="#4f46e5" size={35} />
             </div>}
             {error && <p style={{ color: 'red' }}>Error: {error}</p>}
-            {!loading && !error && posts.length > 0 && (
+            {!loading && !error && (
                 <div id="postsList">
-                    {sortedPosts.length === 0 ? <h3>Add Friends or Create a Post To View Content</h3> :
+                    {sortedPosts.length === 0 ? <h3>{dOrP === "dashboard"
+                        ? "Add friends or create a post to view content"
+                        : "No posts yet. Create your first post!"}
+                    </h3> :
                         sortedPosts.map((post) => (
                             <div key={post.postid} className="postItem">
                                 <div id="postBannerContainer">
